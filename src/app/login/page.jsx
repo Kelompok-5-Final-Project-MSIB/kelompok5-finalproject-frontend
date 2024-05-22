@@ -1,6 +1,7 @@
 'use client';
-import AuthLayout from '@/components/AuthLayout';
-import Input from '@/components/Input';
+import AuthLayout from '@/src/components/AuthLayout';
+import Input from '@/src/components/Input';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -44,14 +45,23 @@ const Page = () => {
     setFormUser({ ...formUser, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    // console.log(formUser);
     e.preventDefault();
     if (validate()) {
-      alert('Form is valid');
-    } else {
-      alert('Form is invalid');
+      const response = await signIn('credentials', {
+        email: formUser.email,
+        password: formUser.password,
+        redirect: false,
+      });
+      if (response.ok) {
+        router.push('/products');
+      } else {
+        alert('Invalid credentials');
+      }
     }
   };
+
   return (
     <AuthLayout title={'Nice to see you again!'}>
       <form>
