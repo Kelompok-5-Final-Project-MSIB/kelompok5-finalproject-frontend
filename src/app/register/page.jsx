@@ -91,12 +91,12 @@ const page = () => {
           <button
             type='button'
             onClick={handleSubmit}
-            class='text-white bg-black2 hover:bg-black focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-base px-5 py-3 me-2 mb-2 w-full'
+            className='w-full px-5 py-3 mb-2 text-base font-medium text-white rounded-lg bg-black2 hover:bg-black focus:ring-4 focus:ring-blue-300 me-2'
           >
             Sign Up
           </button>
         </form>
-        <hr class='h-px my-6 bg-strokeInput border-0'></hr>
+        <hr className='h-px my-6 border-0 bg-strokeInput'></hr>
         <p className='text-sm font-normal text-center text-slate-800 my-3.5'>
           Already have an account ?{' '}
           <span
