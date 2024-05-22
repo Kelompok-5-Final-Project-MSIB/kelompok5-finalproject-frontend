@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import React, { useState } from 'react';
+import React from 'react';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaShoppingCart, FaHeart, FaUserCircle } from 'react-icons/fa';
@@ -9,8 +9,6 @@ import { signOut, useSession } from 'next-auth/react';
 const Navbar = () => {
   const { data: session, status } = useSession();
   console.log(status);
-  const [statuss, setStatus] = useState(false);
-
   const username = session?.user?.name;
   const path = usePathname();
 
