@@ -62,7 +62,8 @@ const Navbar = () => {
                   data-dropdown-toggle='language-dropdown-menu'
                   className='inline-flex items-center justify-center px-4 py-2 -mr-5 text-base font-medium rounded-lg cursor-pointer text-primaryBrown dark:text-white hover:bg-cream2/30 md:mr-0'
                 >
-                  <FaUserCircle className='mr-1 text-xl text-primaryBrown' /> {username}
+                  <FaUserCircle className='mr-1 text-xl text-primaryBrown' />{' '}
+                  {status == 'loading' ? 'loading' : username}
                 </button>
                 <div
                   className='z-50 hidden my-4 text-lg list-none divide-y divide-gray-100 rounded-lg shadow bg-cream2 dark:bg-gray-700'
@@ -72,7 +73,7 @@ const Navbar = () => {
                     className='py-2 font-medium'
                     role='none'
                   >
-                    <li>
+                    <li className='cursor-pointer'>
                       <a
                         onClick={() => signOut({ callbackUrl: '/login' })}
                         className='block px-4 py-2 text-sm text-primaryBrown dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white'
