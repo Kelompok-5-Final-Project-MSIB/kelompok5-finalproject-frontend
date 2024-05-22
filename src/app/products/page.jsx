@@ -10,7 +10,7 @@ import Filter from './components/Filter';
 const page = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { data: session } = useSession();
-  console.log(session);
+  // console.log(session?.user?.accessToken);
   return (
     <section>
       <Navbar />

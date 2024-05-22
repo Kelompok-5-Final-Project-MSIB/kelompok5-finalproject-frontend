@@ -7,8 +7,9 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaShoppingCart, FaHeart, FaUserCircle } from 'react-icons/fa';
 import { signOut, useSession } from 'next-auth/react';
 const Navbar = () => {
-  const { data: session } = useSession();
-  const [status, setStatus] = useState(false);
+  const { data: session, status } = useSession();
+  console.log(status);
+  const [statuss, setStatus] = useState(false);
 
   const username = session?.user?.name;
   const path = usePathname();
@@ -42,7 +43,7 @@ const Navbar = () => {
 
           {/* dengan login */}
           <div className='flex items-center space-x-3 lg:order-2 md:space-x-0 rtl:space-x-reverse'>
-            <div className='flex items-center'>
+            <div className={`${status === 'authenticated' || status === 'loading' ? 'flex' : 'hidden'} items-center`}>
               <span className='hidden md:flex'>
                 <a
                   href='/'
@@ -87,7 +88,9 @@ const Navbar = () => {
               </div>
             </div>
             {/* tanpa login */}
-            <div className={`${status ? 'flex' : 'hidden'} items-center mr-1 font-medium lg:mr-0`}>
+            <div
+              className={`${status === 'unauthenticated' ? 'flex' : 'hidden'} items-center mr-1 font-medium lg:mr-0`}
+            >
               <a
                 href='/login'
                 className='font-semibold md:mr-6 text-primaryBrown md:font-medium'
