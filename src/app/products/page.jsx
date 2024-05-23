@@ -1,5 +1,6 @@
 'use client';
 import Card from '@/components/Card';
+import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import React, { useState } from 'react';
 import { FaFilter } from 'react-icons/fa6';
@@ -36,7 +37,9 @@ const page = () => {
           <Filter style='hidden lg:inline' />
 
           {/* all products */}
-          <div className='w-full lg:w-[75%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
+          <div className='w-full lg:w-[75%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5'>
+            <Card />
+            <Card />
             <Card />
             <Card />
             <Card />
@@ -49,6 +52,7 @@ const page = () => {
           <Pagination />
         </div>
       </div>
+      <Footer/>
     </section>
   );
 };
