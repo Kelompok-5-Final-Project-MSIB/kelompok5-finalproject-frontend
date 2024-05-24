@@ -1,6 +1,6 @@
 'use client';
-import AuthLayout from '@/components/AuthLayout';
-import Input from '@/components/Input';
+import AuthLayout from '@/src/components/AuthLayout';
+import Input from '@/src/components/Input';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -10,12 +10,14 @@ const page = () => {
     name: '',
     email: '',
     password: '',
+    confirmation_password: '',
   });
 
   const [errors, setErrors] = useState({
     name: '',
     email: '',
     password: '',
+    confirmation_password: '',
   });
 
   const validate = () => {
@@ -41,6 +43,16 @@ const page = () => {
     } else if (formUser.password.length < 6) {
       valid = false;
       errors.password = 'Password must be at least 6 characters';
+    }
+    if (!formUser.password) {
+      valid = false;
+      errors.password = 'Confirmation password is required';
+    } else if (formUser.password.length < 6) {
+      valid = false;
+      errors.password = 'Password must be at least 6 characters';
+    } else if (formUser.password !== formUser.confirmation_password) {
+      valid = false;
+      errors.confirmation_password = 'Password does not match';
     }
 
     setErrors(errors);
@@ -86,6 +98,14 @@ const page = () => {
             icon={true}
             onChange={handleChange}
             error={errors.password}
+          />
+          <Input
+            placeholder={'Confirmation Password'}
+            name={'confirmation_password'}
+            type='password'
+            icon={true}
+            onChange={handleChange}
+            error={errors.confirmation_password}
           />
           <p className='mt-1 mb-4 text-sm text-right'>Forgot Password?</p>
           <button

@@ -1,18 +1,22 @@
 'use client';
+
 import Card from '@/components/Card';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import React, { useState } from 'react';
 import { FaFilter } from 'react-icons/fa6';
-import Filter from './components/Filter';
-import Pagination from '@/components/Pagination';
+import Pagination from '@/src/components/Pagination';
 import { IoSearch } from 'react-icons/io5';
+import { useSession } from 'next-auth/react';
+import Filter from './components/Filter';
 const page = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const { data: session } = useSession();
+  // console.log(session?.user?.accessToken);
   return (
     <section>
       <Navbar />
-      <div className='px-4 md:px-10 mt-[100px] mb-12'>
+      <div className='px-4 md:px-14 mt-[100px] mb-12'>
         {/* search*/}
         <div className='relative flex justify-end'>
           {isOpenModal ? <Filter style='absolute top-16 right-16 md:right-24' /> : ''}

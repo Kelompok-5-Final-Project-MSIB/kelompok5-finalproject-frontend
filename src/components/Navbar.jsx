@@ -1,13 +1,17 @@
 'use client';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import React, { useState } from 'react';
+import React from 'react';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaShoppingCart, FaHeart, FaUserCircle } from 'react-icons/fa';
+import { signOut, useSession } from 'next-auth/react';
 const Navbar = () => {
-  const [status, setStatus] = useState(false);
+  const { data: session, status } = useSession();
+  console.log(status);
+  const username = session?.user?.name;
   const path = usePathname();
+
   const navlink = [
     {
       name: 'Home',
@@ -22,6 +26,7 @@ const Navbar = () => {
       link: '/contact',
     },
   ];
+
   return (
     <>
       <nav className='fixed top-0 z-20 w-full bg-white border-b border-gray-200 shadow-md start-0 dark:border-gray-600'>
@@ -36,7 +41,7 @@ const Navbar = () => {
 
           {/* dengan login */}
           <div className='flex items-center space-x-3 lg:order-2 md:space-x-0 rtl:space-x-reverse'>
-            <div className='flex items-center'>
+            <div className={`${status === 'authenticated' || status === 'loading' ? 'flex' : 'hidden'} items-center`}>
               <span className='hidden md:flex'>
                 <a
                   href='/'
@@ -57,7 +62,8 @@ const Navbar = () => {
                   data-dropdown-toggle='language-dropdown-menu'
                   className='inline-flex items-center justify-center px-4 py-2 -mr-5 text-base font-medium rounded-lg cursor-pointer text-primaryBrown dark:text-white hover:bg-cream2/30 md:mr-0'
                 >
-                  <FaUserCircle className='mr-1 text-xl text-primaryBrown' /> user
+                  <FaUserCircle className='mr-1 text-xl text-primaryBrown' />{' '}
+                  {status == 'loading' ? 'loading' : username}
                 </button>
                 <div
                   className='z-50 hidden my-4 text-lg list-none divide-y divide-gray-100 rounded-lg shadow bg-cream2 dark:bg-gray-700'
@@ -67,9 +73,9 @@ const Navbar = () => {
                     className='py-2 font-medium'
                     role='none'
                   >
-                    <li>
+                    <li className='cursor-pointer'>
                       <a
-                        href='#'
+                        onClick={() => signOut({ callbackUrl: '/login' })}
                         className='block px-4 py-2 text-sm text-primaryBrown dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white'
                         role='menuitem'
                       >
@@ -81,7 +87,9 @@ const Navbar = () => {
               </div>
             </div>
             {/* tanpa login */}
-            <div className={`${status ? 'flex' : 'hidden'} items-center mr-1 font-medium lg:mr-0`}>
+            <div
+              className={`${status === 'unauthenticated' ? 'flex' : 'hidden'} items-center mr-1 font-medium lg:mr-0`}
+            >
               <a
                 href='/login'
                 className='font-semibold md:mr-6 text-primaryBrown md:font-medium'
