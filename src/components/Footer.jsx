@@ -22,7 +22,7 @@ return (
 
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-              <div>
+              {/* <div>
                   <h2 className="mb-4 text-sm font-semibold text-gray-950 uppercase dark:text-white">Re Treads</h2>
                   <ul className="text-gray-600 text-sm dark:text-gray-400 font-normal">
                       <li className="mb-1">
@@ -38,7 +38,7 @@ return (
                           <a href="" className="hover:underline">Blog</a>
                       </li>                      
                   </ul>
-              </div>
+              </div> */}
               <div>
                   <h2 className="mb-4 text-sm font-semibold text-gray-950 uppercase dark:text-white">Follow us</h2>
                   <ul className="text-gray-600 text-sm dark:text-gray-400 font-normal">

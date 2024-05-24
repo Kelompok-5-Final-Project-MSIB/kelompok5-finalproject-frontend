@@ -5,27 +5,32 @@ import Navbar from '@/components/Navbar';
 import Category from './components/Category';
 import Card from '@/components/Card';
 import Footer from '@/components/Footer';
+import { FaCartShopping } from 'react-icons/fa6';
 
 const page = () => {
  
  return (
     <>
     <section>
-        <Navbar transparent />
+        <Navbar />
     </section>
     <section class="bg-cream2 dark:bg-gray-900">
-    {/* <div className='px-4 md:px-10 mt-[100px] mb-12'> */}
+    <div className='bg-cream2 px-4  md:px-10 mt-[50px] mb-12'>
     <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
         <div class="mr-auto place-self-center lg:col-span-7">
             <h2 class="max-w-lg mb-4 text-lg font-semibold text-white tracking-tight leading-none md:text-lg xl:text-lg dark:text-white">NEW  COLLECTION  FOR  SNEAKERS</h2>
             <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">Sneakers And
 Athletic Shoes</h1>
-            <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">From checkout to global sales tax compliance, companies around the world use Flowbite to simplify their payment stack.</p>
-            <a href="#" class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
-                Get started
-                <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-            </a>
-            
+            <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">Dapatkan sepatu dengan desain terkini dan teknologi terbaru yang siap mendukung aktivitas Anda. Jangan lewatkan kesempatan untuk tampil stylish dan sporty dengan pilihan sepatu terbaru yang baru saja tiba!</p>
+            <a
+            href='#'
+            className='inline-flex items-center px-6 py-4 text-base font-normal text-center bg-transparent border rounded-lg text-white bg-cream2 hover:bg-cream1 group hover:text-white focus:ring-2 focus:outline-none focus:ring-primaryBrown '
+          >
+            <span className='mr-2'>
+              <FaCartShopping className='text-white group-hover:text-white' />
+            </span>
+            Shop Now 
+          </a>
         </div>
         <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
         <Image
@@ -37,7 +42,7 @@ Athletic Shoes</h1>
           />
         </div>                
     </div>
-    {/* </div> */}
+    </div>
 </section>
 <section>
 <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
@@ -73,25 +78,28 @@ Athletic Shoes</h1>
     </div>
 </section>
 
-<section className='bg-cream1'>
-<div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
-        <div class="mr-auto place-self-center lg:col-span-7">
-            <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">Adidas Men Running
-Sneakers</h1>
-            <p class="max-w-2xl mb-6 font-light text-white lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">Performance and design. Taken right to the edge.</p>
-          
-        </div>
-        <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-        <Image
-            src='/shoestengah.png'
-            alt='Logo'
-            width={500}
-            height={500}
-            className="w-[200%] md:w-[160%] lg:w-[88%]"
-          />
-        </div>                
-</div>
+<section className="relative bg-cream1">
+  <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+    <div className="mr-auto place-self-center lg:col-span-7">
+      <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
+        Adidas Men Running Sneakers
+      </h1>
+      <p className="max-w-2xl mb-6 font-light text-white lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+        Performance and design. Taken right to the edge.
+      </p>
+    </div>
+    <div className="absolute top-0 right-0 -mt-12 hidden lg:flex lg:col-span-5">
+      <Image
+        src="/shoestengah.png"
+        alt="Adidas Men Running Sneakers"
+        width={500}
+        height={500}
+        className="w-[200%] md:w-[160%] lg:w-[88%]"
+      />
+    </div>
+  </div>
 </section>
+
 <section>
 <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
 <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
@@ -103,12 +111,12 @@ Sneakers</h1>
             alt='Flowbite Logo'
             width={500}
             height={500}
-            className='w-[100%] md:w-[80%] lg:w-[58%]'
+            className='mb-4 w-[100%] md:w-[80%] lg:w-[58%]'
            />
            </a>
               </div>
               <h3 class="mb-2 text-center text-xl font-bold text-gray-800">FAST DELIVERY</h3>   
-              <h4 class="mb-2 text-center text-sm font-normal text-gray-800">FREE SHIPPING</h4>   
+              <h4 class="mb-2 text-center text-sm font-normal text-gray-800">Nikmati fast dalivery untuk setiap pembelian di toko kami tanpa minimum order!!</h4>   
               </div>
 <div>
               <div  class="flex justify-center items-center">
@@ -118,12 +126,12 @@ Sneakers</h1>
             alt='Flowbite Logo'
             width={500}
             height={500}
-            className='w-[100%] md:w-[80%] lg:w-[58%]'
+            className='mb-4 w-[100%] md:w-[80%] lg:w-[58%]'
            />
            </a>
               </div>
-              <h3 class="mb-2 text-center text-xl font-bold text-gray-800">FREE SHIPPING</h3>   
-              <h4 class="mb-2 text-center text-sm font-normal text-gray-800">FREE SHIPPING</h4>   
+              <h3 class="mb-2 text-center text-xl font-bold text-gray-800">100% REFUND</h3>   
+              <h4 class="mb-2 text-center text-sm font-normal text-gray-800">Belanja tanpa khawatir dengan jaminan 100% refund!Kepuasan Anda adalah prioritas kami!</h4>   
               </div>
 <div>
               <div  class="flex justify-center items-center">
@@ -133,18 +141,21 @@ Sneakers</h1>
             alt='Flowbite Logo'
             width={500}
             height={500}
-            className='w-[100%] md:w-[80%] lg:w-[58%]'
+            className='mb-4 w-[100%] md:w-[80%] lg:w-[58%]'
            />
            </a>
               </div>
-              <h3 class="mb-2 text-center text-xl font-bold text-gray-800">FREE SHIPPING</h3>   
-              <h4 class="mb-2 text-center text-sm font-normal text-gray-800">FREE SHIPPING</h4>   
+              <h3 class="mb-2 text-center text-xl font-bold text-gray-800">SUPPORT 24/7</h3>   
+              <h4 class="mb-2 text-center text-sm font-normal text-gray-800">Tim kami siap membantu Anda kapan saja, di mana saja, untuk memastikan kepuasan dan kenyamanan Anda dalam berbelanja.</h4>   
               </div>
     </div>
     </div>
+    
 </section>
     <section>
+      
     <Footer/>
+    
     </section>
     </>
  )
