@@ -21,15 +21,15 @@ const Card = () => {
         </a>
         <div className='p-5'>
           <a href='#'>
-            <h1 className='mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white'>Xiphone 14 Pro Maxe</h1>
+            <h1 className='mb-2 text-base font-bold tracking-tight text-gray-900 dark:text-white'>Xiphone 14 Pro Maxe</h1>
           </a>
           <h3 className='flex justify-between mb-3'>
-            <p className='text-base font-semibold'>Rp. 1.000.000</p>
-            <p className='text-base line-through text-textInput'>Rp. 1.500.000</p>
+            <p className='text-base text-sm font-semibold'>Rp. 1.000.000</p>
+            <p className='text-base text-sm line-through text-textInput'>Rp. 1.500.000</p>
           </h3>
           <a
             href='#'
-            className='inline-flex items-center px-5 py-2 text-sm font-medium text-center bg-transparent border rounded-full text-primaryBrown border-primaryBrown hover:bg-brown2 group hover:text-white focus:ring-4 focus:outline-none focus:ring-primaryBrown '
+            className='inline-flex items-center px-3 py-2 text-xs font-medium text-center bg-transparent border rounded-full text-primaryBrown border-primaryBrown hover:bg-brown2 group hover:text-white focus:ring-2 focus:outline-none focus:ring-primaryBrown '
           >
             <span className='mr-2'>
               <FaCartShopping className='text-primaryBrown group-hover:text-white' />
