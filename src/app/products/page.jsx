@@ -1,14 +1,14 @@
 'use client';
 
-import Card from '@/components/Card';
-import Footer from '@/components/Footer';
-import Navbar from '@/components/Navbar';
+import Card from '@/src/components/Card';
+import Footer from '@/src/components/Footer';
+import Navbar from '@/src/components/Navbar';
 import React, { useState } from 'react';
 import { FaFilter } from 'react-icons/fa6';
 import Pagination from '@/src/components/Pagination';
 import { IoSearch } from 'react-icons/io5';
 import { useSession } from 'next-auth/react';
-import Filter from './components/Filter';
+import Filter from '@/src/app/products/components/Filter';
 const page = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { data: session } = useSession();
@@ -56,7 +56,7 @@ const page = () => {
           <Pagination />
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </section>
   );
 };
