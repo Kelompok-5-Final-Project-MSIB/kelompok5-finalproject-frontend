@@ -1,10 +1,10 @@
 'use client';
 import AuthLayout from '@/src/components/AuthLayout';
 import Input from '@/src/components/Input';
+import ModalAlert from '@/src/components/alert/ModalAlert';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-
 const Page = () => {
   const router = useRouter();
   const [formUser, setFormUser] = useState({
@@ -46,7 +46,6 @@ const Page = () => {
   };
 
   const handleSubmit = async (e) => {
-    // console.log(formUser);
     e.preventDefault();
     if (validate()) {
       const response = await signIn('credentials', {
@@ -54,11 +53,13 @@ const Page = () => {
         password: formUser.password,
         redirect: false,
       });
-      if (response.ok) {
+
+      if (response.status === 200) {
+        ModalAlert('Login', 'success');
         router.push('/products');
-      } else {
-        alert('Invalid credentials');
       }
+    } else {
+      ModalAlert('Login', 'error');
     }
   };
 

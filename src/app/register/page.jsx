@@ -2,24 +2,29 @@
 import AuthLayout from '@/src/components/AuthLayout';
 import Input from '@/src/components/Input';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { signUpUser, signupSelector, clearState } from '@/src/utils/slices/signUpSlice';
+import ModalAlert from '@/src/components/alert/ModalAlert';
 
 const page = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [formUser, setFormUser] = useState({
     name: '',
     email: '',
     password: '',
-    confirmation_password: '',
+    password_confirmation: '',
   });
 
   const [errors, setErrors] = useState({
     name: '',
     email: '',
     password: '',
-    confirmation_password: '',
+    password_confirmation: '',
   });
 
+  const { isFetching, isSuccess, isError, errorMessage } = useSelector(signupSelector);
   const validate = () => {
     let valid = true;
     let errors = {};
@@ -44,15 +49,15 @@ const page = () => {
       valid = false;
       errors.password = 'Password must be at least 6 characters';
     }
-    if (!formUser.password) {
+    if (!formUser.password_confirmation) {
       valid = false;
-      errors.password = 'Confirmation password is required';
+      errors.password_confirmation = 'Confirmation password is required';
     } else if (formUser.password.length < 6) {
       valid = false;
-      errors.password = 'Password must be at least 6 characters';
-    } else if (formUser.password !== formUser.confirmation_password) {
+      errors.password_confirmation = 'Password must be at least 6 characters';
+    } else if (formUser.password !== formUser.password_confirmation) {
       valid = false;
-      errors.confirmation_password = 'Password does not match';
+      errors.password_confirmation = 'Password does not match';
     }
 
     setErrors(errors);
@@ -63,14 +68,38 @@ const page = () => {
     setFormUser({ ...formUser, [e.target.name]: e.target.value });
   };
 
+  const data = {
+    name: formUser.name,
+    email: formUser.email,
+    password: formUser.password,
+    password_confirmation: formUser.password_confirmation,
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      alert('Register is valid');
-    } else {
-      alert('register is invalid');
+      dispatch(signUpUser(data));
     }
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearState());
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isError) {
+      console.log(errorMessage);
+      dispatch(clearState());
+    }
+    if (isSuccess) {
+      ModalAlert('Register', 'success');
+      router.push('/landing');
+      dispatch(clearState());
+    } else {
+      ModalAlert('Register', 'error');
+    }
+  }, [isError, isSuccess]);
   return (
     <div>
       <AuthLayout
@@ -79,7 +108,7 @@ const page = () => {
       >
         <form>
           <Input
-            placeholder={'username'}
+            placeholder={'Name'}
             name={'name'}
             onChange={handleChange}
             error={errors.name}
@@ -101,11 +130,11 @@ const page = () => {
           />
           <Input
             placeholder={'Confirmation Password'}
-            name={'confirmation_password'}
+            name={'password_confirmation'}
             type='password'
             icon={true}
             onChange={handleChange}
-            error={errors.confirmation_password}
+            error={errors.password_confirmation}
           />
           <p className='mt-1 mb-4 text-sm text-right'>Forgot Password?</p>
           <button
@@ -113,7 +142,7 @@ const page = () => {
             onClick={handleSubmit}
             className='w-full px-5 py-3 mb-2 text-base font-medium text-white rounded-lg bg-black2 hover:bg-black focus:ring-4 focus:ring-blue-300 me-2'
           >
-            Sign Up
+            {isFetching ? 'Loading...' : 'Sign Up'}
           </button>
         </form>
         <hr className='h-px my-6 border-0 bg-strokeInput'></hr>

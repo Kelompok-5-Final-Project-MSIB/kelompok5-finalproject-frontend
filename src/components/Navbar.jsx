@@ -1,14 +1,15 @@
 'use client';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaShoppingCart, FaHeart, FaUserCircle } from 'react-icons/fa';
 import { signOut, useSession } from 'next-auth/react';
+import Swal from 'sweetalert2';
 const Navbar = () => {
+  const router = useRouter();
   const { data: session, status } = useSession();
-  console.log(status);
   const username = session?.user?.name;
   const path = usePathname();
 
@@ -26,7 +27,21 @@ const Navbar = () => {
       link: '/contact',
     },
   ];
-
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Apakah yakin?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#167F71',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Keluar',
+      cancelButtonText: 'Batal',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signOut({ callbackUrl: '/login' });
+      }
+    });
+  };
   return (
     <>
       <nav className='fixed top-0 z-20 w-full bg-white border-b border-gray-200 shadow-md start-0 dark:border-gray-600'>
@@ -75,7 +90,7 @@ const Navbar = () => {
                   >
                     <li className='cursor-pointer'>
                       <a
-                        onClick={() => signOut({ callbackUrl: '/login' })}
+                        onClick={handleLogout}
                         className='block px-4 py-2 text-sm text-primaryBrown dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white'
                         role='menuitem'
                       >
@@ -99,6 +114,7 @@ const Navbar = () => {
               <button
                 type='button'
                 className='md:flex hidden items-center px-6 py-2.5 text-sm font-semibold text-center rounded-full text-primaryBrown bg-cream1 hover:bg-cream2 hover:text-primaryBrown focus:ring-4 focus:outline-none focus:ring-cream2'
+                onClick={() => router.push('/register')}
               >
                 Sign Up Now{' '}
                 <span className='ml-2'>
