@@ -1,113 +1,186 @@
-import Image from "next/image";
+'use client';
+import Image from 'next/image';
+import React from 'react';
+import Navbar from '@/src/components/Navbar';
+import Category from '@/src/components/Category';
+import Card from '@/src/components/Card';
+import Footer from '@/src/components/Footer';
+import { FaCartShopping } from 'react-icons/fa6';
 
-export default function Home() {
+const page = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <section>
+        <Navbar />
+      </section>
+      <section className='bg-cream2 dark:bg-gray-900'>
+        <div className='bg-cream2 px-4  md:px-10 mt-[50px] mb-12'>
+          <div className='grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12'>
+            <div className='mr-auto place-self-center lg:col-span-7'>
+              <h2 className='max-w-lg mb-4 text-lg font-semibold text-white tracking-tight leading-none md:text-lg xl:text-lg dark:text-white'>
+                NEW COLLECTION FOR SNEAKERS
+              </h2>
+              <h1 className='max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white'>
+                Sneakers And Athletic Shoes
+              </h1>
+              <p className='max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400'>
+                Dapatkan sepatu dengan desain terkini dan teknologi terbaru yang siap mendukung aktivitas Anda. Jangan
+                lewatkan kesempatan untuk tampil stylish dan sporty dengan pilihan sepatu terbaru yang baru saja tiba!
+              </p>
+              <a
+                href='#'
+                className='inline-flex items-center px-6 py-4 text-base font-normal text-center text-white bg-transparent border rounded-lg bg-cream2 hover:bg-cream1 group hover:text-white focus:ring-2 focus:outline-none focus:ring-primaryBrown '
+              >
+                <span className='mr-2'>
+                  <FaCartShopping className='text-white group-hover:text-white' />
+                </span>
+                Shop Now
+              </a>
+            </div>
+            <div className='hidden lg:mt-0 lg:col-span-5 lg:flex'>
+              <Image
+                src='/header.png'
+                alt='Logo'
+                width={500}
+                height={500}
+                className='w-[200%] md:w-[160%] lg:w-[88%]'
+              />
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+      <section>
+        <div className='py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6'>
+          <div className='max-w-screen-full mb-8 lg:mb-16 text-center'>
+            <h2 className='mb-4 text-4xl tracking-tight font-extrabold text-gray-900'>
+              What <span className='text-yellow-700'>We</span> Provide?
+            </h2>
+          </div>
+          <div className='space-y-8 md:grid md:grid-cols-2 lg:grid-cols-7 md:gap-12 md:space-y-0'>
+            <Category />
+            <Category />
+            <Category />
+            <Category />
+            <Category />
+            <Category />
+            <Category />
+          </div>
+        </div>
+      </section>
+      <section>
+        <div className='py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6'>
+          <div className='max-w-screen-full mb-8 lg:mb-16 lg:grid-cols-2 text-left'>
+            <h2 className='mb-4 text-2xl tracking-tight font-extrabold text-gray-900'>
+              New <span className='text-yellow-700'>Arrival</span> For You
+            </h2>
+          </div>
+          <div className='space-y-8 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-12 md:space-y-0'>
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+          </div>
+        </div>
+      </section>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <section className='relative bg-cream1'>
+        <div className='grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12'>
+          <div className='mr-auto place-self-center lg:col-span-7'>
+            <h1 className='max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white'>
+              Adidas Men Running Sneakers
+            </h1>
+            <p className='max-w-2xl mb-6 font-light text-white lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400'>
+              Performance and design. Taken right to the edge.
+            </p>
+          </div>
+          <div className='absolute top-0 right-0 hidden -mt-12 lg:flex lg:col-span-5'>
+            <Image
+              src='/shoestengah.png'
+              alt='Adidas Men Running Sneakers'
+              width={500}
+              height={500}
+              className='w-[200%] md:w-[160%] lg:w-[88%]'
+            />
+          </div>
+        </div>
+      </section>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <section>
+        <div className='py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6'>
+          <div className='space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0'>
+            <div>
+              <div className='flex justify-center items-center'>
+                <a
+                  href=''
+                  className='flex items-center justify-center'
+                >
+                  <Image
+                    src='/Shipping.png'
+                    alt='Flowbite Logo'
+                    width={500}
+                    height={500}
+                    className='mb-4 w-[100%] md:w-[80%] lg:w-[58%]'
+                  />
+                </a>
+              </div>
+              <h3 className='mb-2 text-center text-xl font-bold text-gray-800'>FAST DELIVERY</h3>
+              <h4 className='mb-2 text-center text-sm font-normal text-gray-800'>
+                Nikmati fast dalivery untuk setiap pembelian di toko kami tanpa minimum order!!
+              </h4>
+            </div>
+            <div>
+              <div className='flex justify-center items-center'>
+                <a
+                  href=''
+                  className='flex items-center justify-center'
+                >
+                  <Image
+                    src='/refund.png'
+                    alt='Flowbite Logo'
+                    width={500}
+                    height={500}
+                    className='mb-4 w-[100%] md:w-[80%] lg:w-[58%]'
+                  />
+                </a>
+              </div>
+              <h3 className='mb-2 text-center text-xl font-bold text-gray-800'>100% REFUND</h3>
+              <h4 className='mb-2 text-center text-sm font-normal text-gray-800'>
+                Belanja tanpa khawatir dengan jaminan 100% refund!Kepuasan Anda adalah prioritas kami!
+              </h4>
+            </div>
+            <div>
+              <div className='flex justify-center items-center'>
+                <a
+                  href=''
+                  className='flex items-center justify-center'
+                >
+                  <Image
+                    src='/support.png'
+                    alt='Flowbite Logo'
+                    width={500}
+                    height={500}
+                    className='mb-4 w-[100%] md:w-[80%] lg:w-[58%]'
+                  />
+                </a>
+              </div>
+              <h3 className='mb-2 text-center text-xl font-bold text-gray-800'>SUPPORT 24/7</h3>
+              <h4 className='mb-2 text-center text-sm font-normal text-gray-800'>
+                Tim kami siap membantu Anda kapan saja, di mana saja, untuk memastikan kepuasan dan kenyamanan Anda
+                dalam berbelanja.
+              </h4>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <Footer />
+      </section>
+    </>
   );
-}
+};
+
+export default page;
