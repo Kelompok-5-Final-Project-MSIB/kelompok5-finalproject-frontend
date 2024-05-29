@@ -8,9 +8,8 @@ const Providerr = ({ children }) => {
   return (
     <>
       <Provider store={store}>
-        <SessionProvider>{children}</SessionProvider>;
+        <SessionProvider>{children}</SessionProvider>
       </Provider>
-      ;
     </>
   );
 };
