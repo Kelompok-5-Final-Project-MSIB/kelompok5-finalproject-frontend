@@ -56,7 +56,9 @@ const Page = () => {
 
       if (response.status === 200) {
         ModalAlert('Login', 'success');
-        router.push('/products');
+        router.push('/');
+      } else {
+        ModalAlert('Login', 'error', `${response.error}`);
       }
     } else {
       ModalAlert('Login', 'error');
