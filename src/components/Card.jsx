@@ -1,31 +1,33 @@
-import Image from 'next/image';
 import React from 'react';
 import { FaCartShopping } from 'react-icons/fa6';
+import { calculateDiscountedPrice, formatToCurrency } from '../utils/convertion';
+import { useRouter } from 'next/navigation';
 
-const Card = () => {
+const Card = ({ id_product, discount, name_product, price, image }) => {
+  const rputer = useRouter();
+  const goToCourseDetail = (id) => {
+    rputer.push(`/products/${id}`);
+  };
+
   return (
     <>
-      <div className='max-w-sm bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700'>
-        <a
-          href='#'
-          className='flex items-center justify-center shadow-lg'
+      <div className='max-w-sm bg-white border border-gray-200 rounded-lg '>
+        <div
+          onClick={() => goToCourseDetail(id_product)}
+          className='flex items-center justify-center w-full overflow-hidden shadow-lg cursor-pointer h-44'
         >
-          <Image
-            className='rounded-t-lg w-[70%]'
-            src='/shoes1.png'
-            width={500}
-            height={500}
-            priority={false}
-            alt='shoes'
+          <img
+            src={image}
+            alt='image shoes'
           />
-        </a>
+        </div>
         <div className='p-5'>
-          <a href='#'>
-            <h1 className='mb-2 text-base font-bold tracking-tight text-gray-900 dark:text-white'>Xiphone 14 Pro Maxe</h1>
-          </a>
+          <div onClick={() => goToCourseDetail(id_product)}>
+            <h1 className='mb-2 text-base font-bold tracking-tight text-gray-900 cursor-pointer '>{name_product}</h1>
+          </div>
           <h3 className='flex justify-between mb-3'>
-            <p className='text-base text-sm font-semibold'>Rp. 1.000.000</p>
-            <p className='text-base text-sm line-through text-textInput'>Rp. 1.500.000</p>
+            <p className='text-sm font-semibold'>{formatToCurrency(calculateDiscountedPrice(price, discount))}</p>
+            <p className='text-sm line-through text-textInput'>{formatToCurrency(price)}</p>
           </h3>
           <a
             href='#'

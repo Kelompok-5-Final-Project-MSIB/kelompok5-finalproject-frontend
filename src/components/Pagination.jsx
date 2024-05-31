@@ -1,51 +1,24 @@
 import React from 'react';
 
-const Pagination = () => {
+const Pagination = ({ currentPage, pages, handlePageChange }) => {
   return (
     <>
       <nav aria-label='Page navigation example'>
         <ul className='flex items-center h-8 -space-x-px text-base'>
-          <li>
-            <a
-              href='#'
-              className='flex items-center justify-center h-10 px-3 leading-tight bg-white border border-gray-300 text-black2 hover:bg-gray-100 hover:text-primaryBrown '
-            >
-              1
-            </a>
-          </li>
-          <li>
-            <a
-              href='#'
-              className='flex items-center justify-center h-10 px-3 leading-tight bg-white border border-gray-300 text-black2 hover:bg-gray-100 hover:text-primaryBrown '
-            >
-              2
-            </a>
-          </li>
-          <li>
-            <a
-              href='#'
-              aria-current='page'
-              className='z-10 flex items-center justify-center h-10 px-3 leading-tight text-white bg-cream1 hover:bg-cream2 hover:text-black '
-            >
-              3
-            </a>
-          </li>
-          <li>
-            <a
-              href='#'
-              className='flex items-center justify-center h-10 px-3 leading-tight bg-white border border-gray-300 text-black2 hover:bg-gray-100 hover:text-primaryBrown '
-            >
-              3
-            </a>
-          </li>
-          <li>
-            <a
-              href='#'
-              className='flex items-center justify-center h-10 px-3 leading-tight bg-white border border-gray-300 text-black2 hover:bg-gray-100 hover:text-primaryBrown '
-            >
-              4
-            </a>
-          </li>
+          {pages?.map((page) => (
+            <li key={page}>
+              <button
+                onClick={() => handlePageChange(page)}
+                className={`z-10 flex items-center justify-center h-10 px-3 leading-tight  hover:bg-cream2 hover:text-black ${
+                  currentPage === page
+                    ? 'bg-cream2 text-white'
+                    : ' bg-white text-black border border-gray-300 hover:bg-gray-100 hover:text-primaryBrown'
+                }`}
+              >
+                {page}
+              </button>
+            </li>
+          ))}
         </ul>
       </nav>
     </>
