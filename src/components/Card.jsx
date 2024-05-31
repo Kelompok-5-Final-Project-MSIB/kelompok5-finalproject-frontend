@@ -4,9 +4,9 @@ import { calculateDiscountedPrice, formatToCurrency } from '../utils/convertion'
 import { useRouter } from 'next/navigation';
 
 const Card = ({ id_product, discount, name_product, price, image }) => {
-  const rputer = useRouter();
+  const router = useRouter();
   const goToCourseDetail = (id) => {
-    rputer.push(`/products/${id}`);
+    router.push(`/products/${id}`);
   };
 
   return (
@@ -27,7 +27,13 @@ const Card = ({ id_product, discount, name_product, price, image }) => {
           </div>
           <h3 className='flex justify-between mb-3'>
             <p className='text-sm font-semibold'>{formatToCurrency(calculateDiscountedPrice(price, discount))}</p>
-            <p className='text-sm line-through text-textInput'>{formatToCurrency(price)}</p>
+            <p
+              className={`${
+                calculateDiscountedPrice(price, discount) === price ? 'hidden' : ''
+              } text-sm line-through text-textInput`}
+            >
+              {formatToCurrency(price)}
+            </p>
           </h3>
           <a
             href='#'

@@ -33,7 +33,7 @@ const Page = () => {
                     className='flex items-center justify-start w-auto h-8 m-2 text-gray-900 '
                   >
                     <svg
-                      class='w-6 h-6 '
+                      className='w-6 h-6 '
                       aria-hidden='true'
                       xmlns='http://www.w3.org/2000/svg'
                       width='24'
@@ -57,7 +57,7 @@ const Page = () => {
                     className='flex items-center justify-start w-auto h-8 m-2 text-white '
                   >
                     <svg
-                      class='w-6 h-6 '
+                      className='w-6 h-6 '
                       aria-hidden='true'
                       xmlns='http://www.w3.org/2000/svg'
                       width='24'
@@ -81,7 +81,7 @@ const Page = () => {
                     className='flex items-center justify-start w-auto h-8 m-2 text-white '
                   >
                     <svg
-                      class='w-6 h-6 '
+                      className='w-6 h-6 '
                       aria-hidden='true'
                       xmlns='http://www.w3.org/2000/svg'
                       width='24'
@@ -116,7 +116,7 @@ const Page = () => {
                       className='flex items-center justify-center w-8 h-8 m-2 text-gray-900 bg-white rounded-full hover:text-gray-900 dark:hover:text-white'
                     >
                       <svg
-                        class='w-6 h-6 '
+                        className='w-6 h-6 '
                         aria-hidden='true'
                         xmlns='http://www.w3.org/2000/svg'
                         width='24'
@@ -140,7 +140,7 @@ const Page = () => {
                       className='flex items-center justify-center w-8 h-8 m-2 text-gray-900 bg-white rounded-full hover:text-gray-900 dark:hover:text-white'
                     >
                       <svg
-                        class='w-6 h-6'
+                        className='w-6 h-6'
                         aria-hidden='true'
                         xmlns='http://www.w3.org/2000/svg'
                         width='24'
@@ -191,74 +191,74 @@ const Page = () => {
               </div>
 
               <div>
-                <form class='mb-6'>
-                  <div class='mb-6'>
+                <form className='mb-6'>
+                  <div className='mb-6'>
                     <label
                       for='email'
-                      class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+                      className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
                     >
                       Name
                     </label>
                     <input
                       type='email'
                       id='email'
-                      class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 '
+                      className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 '
                       placeholder='Username'
                       required
                     />
                   </div>
-                  <div class='grid md:grid-cols-2 md:gap-6'>
-                    <div class='relative z-0 w-full mb-5 group'>
+                  <div className='grid md:grid-cols-2 md:gap-6'>
+                    <div className='relative z-0 w-full mb-5 group'>
                       <input
                         type='tel'
                         pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
                         name='floating_phone'
                         id='floating_phone'
-                        class='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'
+                        className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'
                         placeholder=''
                         required
                       />
                       <label
                         for='floating_phone'
-                        class='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
+                        className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
                       >
                         Phone number (+62)
                       </label>
                     </div>
-                    <div class='relative z-0 w-full mb-5 group'>
+                    <div className='relative z-0 w-full mb-5 group'>
                       <input
                         type='text'
                         name='floating_company'
                         id='floating_company'
-                        class='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer'
+                        className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer'
                         placeholder=' '
                         required
                       />
                       <label
                         for='floating_company'
-                        class='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
+                        className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
                       >
                         Email (.@gmail.com)
                       </label>
                     </div>
                   </div>
-                  <div class='mb-6'>
+                  <div className='mb-6'>
                     <label
                       for='message'
-                      class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+                      className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
                     >
                       Your message
                     </label>
                     <textarea
                       id='message'
                       rows='4'
-                      class='block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 '
+                      className='block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 '
                       placeholder='Your message...'
                     ></textarea>
                   </div>
                   <button
                     type='submit'
-                    class='text-white bg-primaryBrown hover:bg-brown2 w-full focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2  focus:outline-none block'
+                    className='text-white bg-primaryBrown hover:bg-brown2 w-full focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2  focus:outline-none block'
                   >
                     Send message
                   </button>

@@ -12,7 +12,7 @@ const Footer = () => {
               alt='Logo'
               width={500}
               height={500}
-              className="'w-[120%] md:w-[100%] lg:w-[58%]'"
+              className='w-[120%] md:w-[58%] lg:w-[100%]'
             />
           </div>
           <div className='grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3'>
@@ -126,10 +126,10 @@ const Footer = () => {
                     (123) 456-7890
                   </a>
                 </li>
-                <li className='mb-1'>
+                <li className='mb-1 overflow-clip'>
                   <a
                     href=''
-                    className='hover:underline'
+                    className=' hover:underline'
                   >
                     ReTreads@secondstepshoes.com
                   </a>

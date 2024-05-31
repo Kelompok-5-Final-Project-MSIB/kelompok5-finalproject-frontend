@@ -12,7 +12,6 @@ export const getAllProduct = createAsyncThunk('product/getAllProduct', async ({ 
       return thunkAPI.rejectWithValue(data);
     }
   } catch (error) {
-    console.log('error', error.response.data);
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
