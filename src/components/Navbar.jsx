@@ -44,7 +44,7 @@ const Navbar = () => {
   };
   return (
     <>
-      <nav className='fixed top-0 z-20 w-full bg-white border-b border-gray-200 shadow-md start-0 dark:border-gray-600'>
+      <nav className='fixed top-0 z-20 w-full bg-white border-b border-gray-200 shadow-md start-0 '>
         <div className='flex flex-wrap items-center justify-between px-4 md:px-10 py-2.5'>
           <Image
             src='/logo_navbar.svg'
@@ -59,13 +59,13 @@ const Navbar = () => {
             <div className={`${status === 'authenticated' || status === 'loading' ? 'flex' : 'hidden'} items-center`}>
               <span className='hidden md:flex'>
                 <a
-                  href='/'
+                  href='/wishlist'
                   className='p-2 rounded-lg cursor-pointer hover:bg-cream2/30'
                 >
                   <FaHeart className='text-xl text-primaryBrown' />
                 </a>
                 <a
-                  href='/'
+                  href='/cart'
                   className='p-2 rounded-lg cursor-pointer hover:bg-cream2/30'
                 >
                   <FaShoppingCart className='text-xl text-primaryBrown' />
@@ -74,15 +74,19 @@ const Navbar = () => {
               <div className='flex items-center space-x-1 lg:order-2 md:space-x-0 rtl:space-x-reverse'>
                 <button
                   type='button'
-                  data-dropdown-toggle='language-dropdown-menu'
-                  className='inline-flex items-center justify-center px-4 py-2 -mr-5 text-base font-medium rounded-lg cursor-pointer text-primaryBrown dark:text-white hover:bg-cream2/30 md:mr-0'
+                  data-dropdown-toggle='dropdownHover'
+                  data-dropdown-trigger='hover'
+                  onClick={() => {
+                    router.push('/user/profile');
+                  }}
+                  className='inline-flex items-center justify-center px-4 py-2 -mr-5 text-base font-medium rounded-lg cursor-pointer text-primaryBrown hover:bg-cream2/30 md:mr-0'
                 >
                   <FaUserCircle className='mr-1 text-xl text-primaryBrown' />{' '}
                   {status == 'loading' ? 'loading' : username}
                 </button>
                 <div
-                  className='z-50 hidden my-4 text-lg list-none divide-y divide-gray-100 rounded-lg shadow bg-cream2 dark:bg-gray-700'
-                  id='language-dropdown-menu'
+                  className='z-50 hidden my-4 text-lg list-none divide-y divide-gray-100 rounded-lg shadow bg-cream2 '
+                  id='dropdownHover'
                 >
                   <ul
                     className='py-2 font-medium'
@@ -91,7 +95,7 @@ const Navbar = () => {
                     <li className='cursor-pointer'>
                       <a
                         onClick={handleLogout}
-                        className='block px-4 py-2 text-sm text-primaryBrown dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white'
+                        className='block px-4 py-2 text-sm text-primaryBrown '
                         role='menuitem'
                       >
                         Logout

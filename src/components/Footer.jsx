@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const Footer = () => {
   return (
-    <footer className='bg-cream1 dark:bg-gray-900'>
+    <footer className='bg-cream1 '>
       <div className='w-full max-w-screen-xl p-2 py-4 mx-auto bg-cream1 lg:py-10'>
         <div className='md:flex md:justify-between'>
           <div className='mb-6 md:mb-0'>
@@ -12,13 +12,13 @@ const Footer = () => {
               alt='Logo'
               width={500}
               height={500}
-              className="'w-[120%] md:w-[100%] lg:w-[58%]'"
+              className='w-[120%] md:w-[58%] lg:w-[100%]'
             />
           </div>
           <div className='grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3'>
             {/* <div>
                   <h2 className="mb-4 text-sm font-semibold uppercase text-gray-950 dark:text-white">Re Treads</h2>
-                  <ul className="text-sm font-normal text-gray-600 dark:text-gray-400">
+                  <ul className="text-sm font-normal text-gray-600 ">
                       <li className="mb-1">
                           <a href="" className="hover:underline">About Re treads</a>
                       </li>
@@ -34,8 +34,8 @@ const Footer = () => {
                   </ul>
               </div> */}
             <div>
-              <h2 className='mb-4 text-sm font-semibold uppercase text-gray-950 dark:text-white'>Follow us</h2>
-              <ul className='text-sm font-normal text-gray-600 dark:text-gray-400'>
+              <h2 className='mb-4 text-sm font-semibold uppercase text-gray-950 '>Follow us</h2>
+              <ul className='text-sm font-normal text-gray-600 '>
                 <li className='mb-1'>
                   <a
                     href=''
@@ -71,10 +71,8 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h2 className='mb-4 text-sm font-semibold uppercase text-gray-950 dark:text-white'>
-                Policies and Security
-              </h2>
-              <ul className='text-sm font-normal text-gray-600 dark:text-gray-400'>
+              <h2 className='mb-4 text-sm font-semibold uppercase text-gray-950 '>Policies and Security</h2>
+              <ul className='text-sm font-normal text-gray-600 '>
                 <li className='mb-1'>
                   <a
                     href=''
@@ -110,8 +108,8 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h2 className='mb-4 text-sm font-semibold uppercase text-gray-950 dark:text-white'>Contact</h2>
-              <ul className='text-sm font-normal text-gray-600 dark:text-gray-400'>
+              <h2 className='mb-4 text-sm font-semibold uppercase text-gray-950 '>Contact</h2>
+              <ul className='text-sm font-normal text-gray-600 '>
                 <li className='mb-1'>
                   <a
                     href=''
@@ -128,10 +126,10 @@ const Footer = () => {
                     (123) 456-7890
                   </a>
                 </li>
-                <li className='mb-1'>
+                <li className='mb-1 overflow-clip'>
                   <a
                     href=''
-                    className='hover:underline'
+                    className=' hover:underline'
                   >
                     ReTreads@secondstepshoes.com
                   </a>
@@ -140,15 +138,13 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <hr className='my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8' />
+        <hr className='my-6 border-gray-200 sm:mx-auto lg:my-8' />
         <div className='sm:flex sm:items-center sm:justify-between'>
-          <span className='text-sm text-gray-900 sm:text-center dark:text-gray-400'>
-            © 2024 kelompok 5. All Rights Reserved.
-          </span>
+          <span className='text-sm text-gray-900 sm:text-center '>© 2024 kelompok 5. All Rights Reserved.</span>
           <div className='flex mt-4 sm:justify-center sm:mt-0'>
             <a
               href='#'
-              className='text-gray-900 hover:text-gray-900 dark:hover:text-white'
+              className='text-gray-900 hover:text-gray-900 '
             >
               <svg
                 className='w-4 h-4'
@@ -167,7 +163,7 @@ const Footer = () => {
             </a>
             <a
               href='#'
-              className='text-gray-900 hover:text-gray-900 dark:hover:text-white ms-5'
+              className='text-gray-900 hover:text-gray-900 ms-5'
             >
               <svg
                 className='w-4 h-4'
@@ -182,7 +178,7 @@ const Footer = () => {
             </a>
             <a
               href='#'
-              className='text-gray-900 hover:text-gray-900 dark:hover:text-white ms-5'
+              className='text-gray-900 hover:text-gray-900 ms-5'
             >
               <svg
                 className='w-4 h-4'
@@ -201,7 +197,7 @@ const Footer = () => {
             </a>
             <a
               href='#'
-              className='text-gray-900 hover:text-gray-900 dark:hover:text-white ms-5'
+              className='text-gray-900 hover:text-gray-900 ms-5'
             >
               <svg
                 className='w-4 h-4'
@@ -220,7 +216,7 @@ const Footer = () => {
             </a>
             <a
               href='#'
-              className='text-gray-900 hover:text-gray-900 dark:hover:text-white ms-5'
+              className='text-gray-900 hover:text-gray-900 ms-5'
             >
               <svg
                 className='w-4 h-4'
