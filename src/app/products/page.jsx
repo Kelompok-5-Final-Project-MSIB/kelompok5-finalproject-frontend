@@ -25,8 +25,7 @@ const page = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isLoading, product, currentPage } = useSelector(productSelector);
-  // console.log(product.data);
-  console.log(product);
+  const token = session?.user?.accessToken;
 
   const products = product.data;
   const pages = Array.from({ length: Math.ceil(product.total / product.per_page) }, (_, i) => i + 1);
@@ -102,6 +101,7 @@ const page = () => {
                   <Card
                     key={prod.id}
                     {...prod}
+                    token={token}
                   />
                 ))}
               </>

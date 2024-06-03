@@ -1,32 +1,49 @@
-import React from 'react';
-import Image from 'next/image';
+'use client';
 import { FaShoppingCart, FaHeart, FaRegTrashAlt } from 'react-icons/fa';
-const ProductCard = ({ product, isInCart }) => {
+import { calculateDiscountedPrice } from '../utils/convertion';
+import { useDispatch } from 'react-redux';
+import { deleteCart, getAllProductCart } from '../utils/slices/cartSlice';
+import { useRouter } from 'next/navigation';
+const ProductCard = ({ product, isInCart, token, onCheckboxChange, isChecked }) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const handleDeleteCart = (id, e) => {
+    e.preventDefault();
+    dispatch(deleteCart({ id: id, token: token }));
+    dispatch(getAllProductCart({ token: token }));
+  };
+
   return (
     <div className='flex flex-col items-center justify-between px-4 py-3 shadow-md md:flex-row'>
-      <div className='flex items-center'>
+      <div
+        className='flex items-center cursor-pointer'
+        onClick={() => router.push(`/products/${product.id_product}`)}
+      >
         {isInCart && (
           <input
             id='default-checkbox'
             type='checkbox'
-            value=''
-            className='w-4 h-4 bg-gray-100 border-gray-300 rounded text-primaryBrown focus:ring-primaryBrown dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
+            value={product.id_product}
+            checked={isChecked}
+            className='w-4 h-4 border-gray-300 rounded bg-primaryBrown text-primaryBrown focus:ring-primaryBrown focus:ring-2'
+            onChange={(e) => onCheckboxChange(product.id_product, e.target.checked, product.price)}
           />
         )}
         <div className={`w-20 h-20  ${isInCart ? 'ml-8' : 'ml-0'}`}>
-          <Image
+          <img
             src={product.image}
-            width={100}
-            height={100}
-            alt={product.name}
+            alt={product.name_product}
             className='w-full'
           />
         </div>
         <div className={`ml-5 ${isInCart ? '' : 'ml-0'}`}>
-          <h1 className='text-lg'>{product.name}</h1>
+          <h1 className='text-lg'>{product.name_product}</h1>
           <div className='flex items-center gap-3 mt-2'>
-            <p className='line-through text-textInput'>{product.originalPrice}</p>
-            <h3 className='text-lg font-semibold text-primaryBrown'>{product.discountedPrice}</h3>
+            <p className='line-through text-textInput'>{product.price}</p>
+            {/* <h3 className='text-lg font-semibold text-primaryBrown'>
+              {calculateDiscountedPrice(product.price / discount)}
+            </h3> */}
           </div>
         </div>
       </div>
@@ -34,7 +51,10 @@ const ProductCard = ({ product, isInCart }) => {
         {isInCart ? (
           <>
             <FaHeart className='text-lg text-primaryBrown hover:scale-110' />
-            <FaRegTrashAlt className='text-lg hover:scale-110' />
+            <FaRegTrashAlt
+              className='text-lg hover:scale-110'
+              onClick={(e) => handleDeleteCart(product.id_product, e)}
+            />
           </>
         ) : (
           <div className='flex flex-col items-start justify-start gap-5'>

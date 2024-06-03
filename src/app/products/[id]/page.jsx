@@ -8,14 +8,27 @@ import { productSelector, getProductById, clearState, setCurrentPage } from '@/s
 import { useDispatch, useSelector } from 'react-redux';
 import { calculateDiscountedPrice, formatToCurrency } from '@/src/utils/convertion';
 import SkeletonDetailProduct from '@/src/components/skeleton/SkeletonDetailProduct';
+import { cartSelector, addCart } from '@/src/utils/slices/cartSlice';
+import ModalAlert from '@/src/components/alert/ModalAlert';
+import { useSession } from 'next-auth/react';
 const page = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const router = useRouter();
+  const { data: session } = useSession();
   const { isLoading, product } = useSelector(productSelector);
-
+  const { errorMessage } = useSelector(cartSelector);
+  const token = session?.user?.accessToken;
   const fetchProducts = () => {
     dispatch(getProductById(id));
+  };
+
+  const handleAddToCart = (id, token) => {
+    dispatch(addCart({ id_product: id, token: token }));
+    if (errorMessage.status === 'error') {
+      ModalAlert('Cart', 'error', errorMessage?.message);
+    }
+    router.push('/cart');
   };
 
   useEffect(() => {
@@ -95,13 +108,21 @@ const page = () => {
             <hr className='h-px my-4 border-0 bg-strokeInput'></hr>
 
             <p className='mb-3 pr-28'>{product.desc}</p>
-            {/* <div className='flex flex-col'>
+            <div className='flex flex-col'>
               Size
-              <div className='mt-1 px-2.5 py-2 text-white rounded-md w-fit bg-cream1'>m</div>
-            </div> */}
+              <div className='mt-1 px-2.5 py-2 text-white rounded-md w-fit bg-cream1'>{product.size}</div>
+            </div>
             <div className='flex mt-4'>
-              <div className='px-10 py-2 mr-3 border rounded-lg border-primaryBrown '>1</div>
-              <button className='px-10 py-2 border rounded-lg border-primaryBrown hover:bg-primaryBrown hover:border-white hover:text-white'>
+              <button
+                className='px-10 py-2 mr-3 text-white border rounded-lg bg-primaryBrown border-primaryBrown'
+                onClick={() => router.push('/cekout')}
+              >
+                Checkout
+              </button>
+              <button
+                className='px-10 py-2 border rounded-lg border-primaryBrown hover:bg-primaryBrown hover:border-white hover:text-white'
+                onClick={() => handleAddToCart(id, token)}
+              >
                 Add to Cart
               </button>
             </div>
