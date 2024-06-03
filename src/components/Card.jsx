@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { FaCartShopping } from 'react-icons/fa6';
 import { calculateDiscountedPrice, formatToCurrency } from '../utils/convertion';
 import { useRouter } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCart, cartSelector } from '@/src/utils/slices/cartSlice';
+import ModalAlert from './alert/ModalAlert';
 
-const Card = ({ id_product, discount, name_product, price, image }) => {
+const Card = ({ id_product, discount, name_product, price, image, token }) => {
+  const { errorMessage } = useSelector(cartSelector);
+
   const router = useRouter();
+  const dispatch = useDispatch();
   const goToCourseDetail = (id) => {
     router.push(`/products/${id}`);
+  };
+
+  const handleAddToCart = (id, token) => {
+    dispatch(addCart({ id_product: id, token: token }));
+    if (errorMessage.status === 'error') {
+      ModalAlert('Cart', 'error', errorMessage?.message);
+    }
+    router.push('/cart');
   };
 
   return (
@@ -19,6 +33,7 @@ const Card = ({ id_product, discount, name_product, price, image }) => {
           <img
             src={image}
             alt='image shoes'
+            className='bg-center bg-cover'
           />
         </div>
         <div className='p-5'>
@@ -35,15 +50,15 @@ const Card = ({ id_product, discount, name_product, price, image }) => {
               {formatToCurrency(price)}
             </p>
           </h3>
-          <a
-            href='#'
+          <button
+            onClick={() => handleAddToCart(id_product, token)}
             className='inline-flex items-center px-3 py-2 text-xs font-medium text-center bg-transparent border rounded-full text-primaryBrown border-primaryBrown hover:bg-brown2 group hover:text-white focus:ring-2 focus:outline-none focus:ring-primaryBrown '
           >
             <span className='mr-2'>
               <FaCartShopping className='text-primaryBrown group-hover:text-white' />
             </span>
             Add to Cart
-          </a>
+          </button>
         </div>
       </div>
     </>

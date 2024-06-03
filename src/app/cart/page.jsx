@@ -1,33 +1,48 @@
+'use client';
 import Navbar from '@/src/components/Navbar';
 import ProductCard from '@/src/components/ProductCard';
-import Image from 'next/image';
-import React from 'react';
-import { FaRegTrashAlt } from 'react-icons/fa';
-import { FaShoppingCart, FaHeart, FaUserCircle } from 'react-icons/fa';
-
-const products = [
-  {
-    name: 'Nike Airmax 270 react',
-    originalPrice: 'Rp. 1.000.000',
-    discountedPrice: 'Rp. 1.500.000',
-    image: '/shoes1.png',
-  },
-  {
-    name: 'Nike Airmax 270 react',
-    originalPrice: 'Rp. 1.000.000',
-    discountedPrice: 'Rp. 1.500.000',
-    image: '/shoes1.png',
-  },
-  {
-    name: 'Nike Airmax 270 react',
-    originalPrice: 'Rp. 1.000.000',
-    discountedPrice: 'Rp. 1.500.000',
-    image: '/shoes1.png',
-  },
-  // Tambahkan produk lainnya di sini
-];
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  cartSelector,
+  getAllProductCart,
+  clearState,
+  toggleProductSelection,
+  selectAllProducts,
+} from '@/src/utils/slices/cartSlice';
+import { useSession } from 'next-auth/react';
+import SkeletonCart from '@/src/components/skeleton/SkeletonCart';
+import { useRouter } from 'next/navigation';
 
 const page = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { cartProduct, isLoading, selectedProducts, isSelectAll } = useSelector(cartSelector);
+  const { data: session, status } = useSession();
+  const token = session?.user?.accessToken;
+  const carts = cartProduct?.data;
+
+  const handleCheckboxChange = (productId, isChecked, productPrice) => {
+    dispatch(toggleProductSelection({ id_product: productId, price: productPrice, isChecked }));
+  };
+
+  const handleSelectAll = (isChecked) => {
+    dispatch(selectAllProducts({ products: carts, isChecked }));
+  };
+
+  const calculatedSubtotal = () => {
+    return selectedProducts.reduce((total, product) => total + product.price, 0);
+  };
+
+  const subtotal = calculatedSubtotal();
+  const total = subtotal;
+
+  useEffect(() => {
+    if (status === 'authenticated' && token) {
+      dispatch(clearState());
+      dispatch(getAllProductCart({ token: token }));
+    }
+  }, [token]);
   return (
     <section>
       <Navbar />
@@ -39,36 +54,52 @@ const page = () => {
             <input
               id='default-checkbox'
               type='checkbox'
-              value=''
+              value={''}
               className='w-4 h-4 bg-gray-100 border-gray-300 rounded text-primaryBrown focus:ring-primaryBrown dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
+              onChange={(e) => handleSelectAll(e.target.checked)}
             />
             <p className='ml-8'>Products</p>
           </div>
           {/* cart */}
           <div className='flex flex-col items-start justify-between gap-4 lg:flex-row'>
             <div className='w-[60%] md:w-full grid grid-cols-1 gap-4'>
-              {products.map((product, index) => (
-                <ProductCard
-                  key={index}
-                  product={product}
-                  isInCart={true}
-                />
-              ))}
+              {isLoading
+                ? Array.from({ length: 3 }).map((_, index) => <SkeletonCart key={index} />)
+                : carts?.map((product, index) => (
+                    <ProductCard
+                      key={index}
+                      product={product}
+                      isInCart={true}
+                      token={token}
+                      onCheckboxChange={handleCheckboxChange}
+                      isChecked={
+                        isSelectAll ||
+                        selectedProducts.some((selectedProduct) => selectedProduct.id === product.id_product)
+                      }
+                    />
+                  ))}
             </div>
             <div className='lg:w-[35%] w-full px-6 py-3 shadow-lg'>
               <div className='flex items-center justify-between mb-3'>
                 <p>Subtotal</p>
-                <p>Rp 4.000.000</p>
+                <p>{subtotal}</p>
               </div>
-              <div className='flex items-center justify-between mb-3'>
+              {/* <div className='flex items-center justify-between mb-3'>
                 <p>Discount</p>
                 <p>No</p>
-              </div>
+              </div> */}
               <div className='flex items-center justify-between mb-5'>
                 <h1 className='text-2xl font-medium'>Total</h1>
-                <h1 className='text-2xl font-medium'>Rp 4.000.000</h1>
+                <h1 className='text-2xl font-medium'>{total}</h1>
               </div>
-              <button className='w-full px-6 py-3 text-white rounded-lg bg-cream1'>Checkout</button>
+              <button
+                className='w-full px-6 py-3 text-white rounded-lg bg-cream1'
+                onClick={() => {
+                  router.push('/cekout');
+                }}
+              >
+                Checkout
+              </button>
             </div>
           </div>
         </div>
