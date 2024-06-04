@@ -1,13 +1,63 @@
 'use client';
+import { useReportWebVitals } from 'next/web-vitals';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '@/src/components/Navbar';
 import Category from '@/src/components/Category';
 import Card from '@/src/components/Card';
 import Footer from '@/src/components/Footer';
 import { FaCartShopping } from 'react-icons/fa6';
+import { productSelector, getAllProduct, clearState, setCurrentPage } from '@/src/utils/slices/productSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import SkeletonProduct from '@/src/components/skeleton/SkeletonProduct';
+
+const merk = [
+  {
+    name: 'Nike',
+    image: '/Nike.png',
+  },
+  {
+    name: 'Puma',
+    image: '/puma.png',
+  },
+  {
+    name: 'Reebok',
+    image: '/reebok.png',
+  },
+  {
+    name: 'Vans',
+    image: '/vans.png',
+  },
+  {
+    name: 'Converse',
+    image: '/converse.png',
+  },
+  {
+    name: 'Adidas',
+    image: '/adidas.png',
+  },
+  {
+    name: 'Other',
+    image: '/other.png',
+  },
+];
 
 const page = () => {
+  // useReportWebVitals((metric) => {
+  //   console.log(metric);
+  // });
+  const { isLoading, product, currentPage } = useSelector(productSelector);
+  const dispatch = useDispatch();
+  const fetchProducts = () => {
+    dispatch(getAllProduct({ current: currentPage }));
+  };
+
+  useEffect(() => {
+    dispatch(clearState());
+    fetchProducts();
+  }, []);
+  const products = product.data;
+
   return (
     <>
       <section>
@@ -17,13 +67,13 @@ const page = () => {
         <div className='bg-cream2 px-4  md:px-10 mt-[50px] mb-12'>
           <div className='grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12'>
             <div className='mr-auto place-self-center lg:col-span-7'>
-              <h2 className='max-w-lg mb-4 text-lg font-semibold text-white tracking-tight leading-none md:text-lg xl:text-lg dark:text-white'>
+              <h2 className='max-w-lg mb-4 text-lg font-semibold leading-none tracking-tight text-white md:text-lg xl:text-lg '>
                 NEW COLLECTION FOR SNEAKERS
               </h2>
-              <h1 className='max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white'>
+              <h1 className='max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl '>
                 Sneakers And Athletic Shoes
               </h1>
-              <p className='max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400'>
+              <p className='max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl '>
                 Dapatkan sepatu dengan desain terkini dan teknologi terbaru yang siap mendukung aktivitas Anda. Jangan
                 lewatkan kesempatan untuk tampil stylish dan sporty dengan pilihan sepatu terbaru yang baru saja tiba!
               </p>
@@ -50,39 +100,47 @@ const page = () => {
         </div>
       </section>
       <section>
-        <div className='py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6'>
-          <div className='max-w-screen-full mb-8 lg:mb-16 text-center'>
-            <h2 className='mb-4 text-4xl tracking-tight font-extrabold text-gray-900'>
+        <div className='max-w-screen-xl px-4 py-8 mx-auto sm:py-16 lg:px-6'>
+          <div className='mb-8 text-center max-w-screen-full lg:mb-16'>
+            <h2 className='mb-4 text-4xl font-extrabold tracking-tight text-gray-900'>
               What <span className='text-yellow-700'>We</span> Provide?
             </h2>
           </div>
-          <div className='space-y-8 md:grid md:grid-cols-2 lg:grid-cols-7 md:gap-12 md:space-y-0'>
-            <Category />
-            <Category />
-            <Category />
-            <Category />
-            <Category />
-            <Category />
-            <Category />
+          <div className='space-y-8 md:grid md:grid-cols-4 lg:grid-cols-7 md:gap-12 md:space-y-0'>
+            {merk.map((merk) => (
+              <Category
+                key={merk.name}
+                {...merk}
+              />
+            ))}
           </div>
         </div>
       </section>
       <section>
-        <div className='py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6'>
-          <div className='max-w-screen-full mb-8 lg:mb-16 lg:grid-cols-2 text-left'>
-            <h2 className='mb-4 text-2xl tracking-tight font-extrabold text-gray-900'>
+        <div className='max-w-screen-xl px-4 py-8 mx-auto sm:py-16 lg:px-6'>
+          <div className='mb-8 text-left max-w-screen-full lg:mb-16 lg:grid-cols-2'>
+            <h2 className='mb-4 text-2xl font-extrabold tracking-tight text-gray-900'>
               New <span className='text-yellow-700'>Arrival</span> For You
             </h2>
           </div>
           <div className='space-y-8 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-12 md:space-y-0'>
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            {isLoading ? (
+              <>
+                <div className='flex flex-col gap-5 md:flex-row lg:flex-row'>
+                  <SkeletonProduct />
+                  <SkeletonProduct />
+                  <SkeletonProduct />
+                  <SkeletonProduct />
+                </div>
+              </>
+            ) : (
+              products?.map((prod) => (
+                <Card
+                  key={prod.id}
+                  {...prod}
+                />
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -90,10 +148,10 @@ const page = () => {
       <section className='relative bg-cream1'>
         <div className='grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12'>
           <div className='mr-auto place-self-center lg:col-span-7'>
-            <h1 className='max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white'>
+            <h1 className='max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl '>
               Adidas Men Running Sneakers
             </h1>
-            <p className='max-w-2xl mb-6 font-light text-white lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400'>
+            <p className='max-w-2xl mb-6 font-light text-white lg:mb-8 md:text-lg lg:text-xl '>
               Performance and design. Taken right to the edge.
             </p>
           </div>
@@ -110,10 +168,10 @@ const page = () => {
       </section>
 
       <section>
-        <div className='py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6'>
+        <div className='max-w-screen-xl px-4 py-8 mx-auto sm:py-16 lg:px-6'>
           <div className='space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0'>
             <div>
-              <div className='flex justify-center items-center'>
+              <div className='flex items-center justify-center'>
                 <a
                   href=''
                   className='flex items-center justify-center'
@@ -127,13 +185,13 @@ const page = () => {
                   />
                 </a>
               </div>
-              <h3 className='mb-2 text-center text-xl font-bold text-gray-800'>FAST DELIVERY</h3>
-              <h4 className='mb-2 text-center text-sm font-normal text-gray-800'>
+              <h3 className='mb-2 text-xl font-bold text-center text-gray-800'>FAST DELIVERY</h3>
+              <h4 className='mb-2 text-sm font-normal text-center text-gray-800'>
                 Nikmati fast dalivery untuk setiap pembelian di toko kami tanpa minimum order!!
               </h4>
             </div>
             <div>
-              <div className='flex justify-center items-center'>
+              <div className='flex items-center justify-center'>
                 <a
                   href=''
                   className='flex items-center justify-center'
@@ -147,13 +205,13 @@ const page = () => {
                   />
                 </a>
               </div>
-              <h3 className='mb-2 text-center text-xl font-bold text-gray-800'>100% REFUND</h3>
-              <h4 className='mb-2 text-center text-sm font-normal text-gray-800'>
+              <h3 className='mb-2 text-xl font-bold text-center text-gray-800'>100% REFUND</h3>
+              <h4 className='mb-2 text-sm font-normal text-center text-gray-800'>
                 Belanja tanpa khawatir dengan jaminan 100% refund!Kepuasan Anda adalah prioritas kami!
               </h4>
             </div>
             <div>
-              <div className='flex justify-center items-center'>
+              <div className='flex items-center justify-center'>
                 <a
                   href=''
                   className='flex items-center justify-center'
@@ -167,8 +225,8 @@ const page = () => {
                   />
                 </a>
               </div>
-              <h3 className='mb-2 text-center text-xl font-bold text-gray-800'>SUPPORT 24/7</h3>
-              <h4 className='mb-2 text-center text-sm font-normal text-gray-800'>
+              <h3 className='mb-2 text-xl font-bold text-center text-gray-800'>SUPPORT 24/7</h3>
+              <h4 className='mb-2 text-sm font-normal text-center text-gray-800'>
                 Tim kami siap membantu Anda kapan saja, di mana saja, untuk memastikan kepuasan dan kenyamanan Anda
                 dalam berbelanja.
               </h4>

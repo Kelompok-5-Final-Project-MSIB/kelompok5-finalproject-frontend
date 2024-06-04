@@ -78,6 +78,8 @@ const page = () => {
     e.preventDefault();
     if (validate()) {
       dispatch(signUpUser(data));
+    } else {
+      ModalAlert('Login', 'error');
     }
   };
 
@@ -94,10 +96,8 @@ const page = () => {
     }
     if (isSuccess) {
       ModalAlert('Register', 'success');
-      router.push('/landing');
+      router.push('/login');
       dispatch(clearState());
-    } else {
-      ModalAlert('Register', 'error');
     }
   }, [isError, isSuccess]);
   return (
