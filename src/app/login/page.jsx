@@ -74,6 +74,7 @@ const Page = () => {
           type='email'
           onChange={handleChange}
           error={errors.email}
+          label={false}
         />
         <Input
           placeholder={'Enter Password'}
@@ -82,6 +83,7 @@ const Page = () => {
           icon={true}
           onChange={handleChange}
           error={errors.password}
+          label={false}
         />
         <p className='mt-1 mb-4 text-sm text-right'>Forgot Password?</p>
         <button

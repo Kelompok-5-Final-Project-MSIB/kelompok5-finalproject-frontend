@@ -111,6 +111,7 @@ const page = () => {
             placeholder={'Name'}
             name={'name'}
             onChange={handleChange}
+            label={false}
             error={errors.name}
           />
           <Input
@@ -118,6 +119,7 @@ const page = () => {
             name={'email'}
             type='email'
             onChange={handleChange}
+            label={false}
             error={errors.email}
           />
           <Input
@@ -126,6 +128,7 @@ const page = () => {
             type='password'
             icon={true}
             onChange={handleChange}
+            label={false}
             error={errors.password}
           />
           <Input
@@ -134,6 +137,7 @@ const page = () => {
             type='password'
             icon={true}
             onChange={handleChange}
+            label={false}
             error={errors.password_confirmation}
           />
           <p className='mt-1 mb-4 text-sm text-right'>Forgot Password?</p>

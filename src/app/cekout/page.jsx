@@ -6,15 +6,13 @@ import Address from '@/src/app/cekout/components/Address';
 const Page = () => {
   return (
     <>
-      <section>
-        <Navbar />
-      </section>
+      <Navbar />
 
       <section>
         <div className='px-4 md:px-10 mt-[50px] mb-4'>
           {' '}
           {/* Adjusted margin-bottom */}
-          <div className='py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6'>
+          <div className='max-w-screen-xl px-4 py-8 mx-auto sm:py-16 lg:px-6'>
             <nav
               className='flex mb-4'
               aria-label='Breadcrumb'
@@ -39,7 +37,7 @@ const Page = () => {
                 </li>
               </ol>
             </nav>
-            <div className='max-w-screen-full mt-4 border border-gray-200 mb-4 lg:mb-2 text-left'>
+            <div className='mt-4 mb-4 text-left border border-gray-200 max-w-screen-full lg:mb-2'>
               <a
                 href='#'
                 className='flex items-center justify-start w-auto h-8 m-2 text-gray-900'
@@ -70,7 +68,7 @@ const Page = () => {
                 </svg>
                 <span className='ml-2'>Alamat Pengirim</span>
               </a>
-              <div className='px-4 py-4 sm:flex sm:flex-col lg:grid lg:grid-cols-3 lg:gap-4 lg:px-0 items-center'>
+              <div className='items-center px-4 py-4 sm:flex sm:flex-col lg:grid lg:grid-cols-3 lg:gap-4 lg:px-0'>
                 <h4 className='mb-2 text-sm font-normal text-gray-500 lg:ml-6'>
                   Bambang Pamungkas <span>(+6287654321890)</span>
                 </h4>
@@ -89,24 +87,24 @@ const Page = () => {
               </div>
             </div>
           </div>
-          <div className='max-w-screen-full  border border-gray-200  '></div>
+          <div className='border border-gray-200 max-w-screen-full'></div>
         </div>
       </section>
-      <section className='py-8 px-4 mx-auto max-w-screen-xl lg:px-6 antialiased'>
+      <section className='max-w-screen-xl px-4 py-8 mx-auto antialiased lg:px-6'>
         {' '}
         {/* Adjusted margin-top */}
         <form
           action='#'
-          className='mx-auto max-w-screen-xl px-4 2xl:px-0'
+          className='max-w-screen-xl px-4 mx-auto 2xl:px-0'
         >
-          <div className='max-w-screen-full border border-gray-200 mb-4 lg:mb-8 text-left'>
-            <h2 className='mt-2 font-semibold text-lg text-gray-600 lg:ml-6'>Produk Pemesanan</h2>
+          <div className='mb-4 text-left border border-gray-200 max-w-screen-full lg:mb-8'>
+            <h2 className='mt-2 text-lg font-semibold text-gray-600 lg:ml-6'>Produk Pemesanan</h2>
             <div className='relative overflow-x-auto border-b border-gray-200 dark:border-gray-800'>
-              <table className='w-full text-left font-medium text-gray-900 dark:text-white md:table-fixed'>
+              <table className='w-full font-medium text-left text-gray-900 dark:text-white md:table-fixed'>
                 <tbody className='divide-y divide-gray-200 dark:divide-gray-800'>
                   <tr>
                     <td className='whitespace-nowrap py-4 md:w-[384px]'>
-                      <div className='flex items-center lg:ml-6 gap-4'>
+                      <div className='flex items-center gap-4 lg:ml-6'>
                         <Image
                           src='/nikee.png'
                           alt='Flowbite Logo'
@@ -122,11 +120,11 @@ const Page = () => {
                         </a>
                       </div>
                     </td>
-                    <td className='p-4 text-right text-base font-bold text-gray-900 dark:text-white'>Rp. 1.000.000</td>
+                    <td className='p-4 text-base font-bold text-right text-gray-900 dark:text-white'>Rp. 1.000.000</td>
                   </tr>
                   <tr>
                     <td className='whitespace-nowrap py-4 md:w-[384px]'>
-                      <div className='flex items-center lg:ml-6 gap-4'>
+                      <div className='flex items-center gap-4 lg:ml-6'>
                         <Image
                           src='/nikee.png'
                           alt='Flowbite Logo'
@@ -142,11 +140,11 @@ const Page = () => {
                         </a>
                       </div>
                     </td>
-                    <td className='p-4 text-right text-base font-bold text-gray-900 dark:text-white'>Rp. 1.000.000</td>
+                    <td className='p-4 text-base font-bold text-right text-gray-900 dark:text-white'>Rp. 1.000.000</td>
                   </tr>
                   <tr>
                     <td className='whitespace-nowrap py-4 md:w-[384px]'>
-                      <div className='flex items-center lg:ml-6 gap-4'>
+                      <div className='flex items-center gap-4 lg:ml-6'>
                         <Image
                           src='/nikee.png'
                           alt='Flowbite Logo'
@@ -162,11 +160,11 @@ const Page = () => {
                         </a>
                       </div>
                     </td>
-                    <td className='p-4 text-right text-base font-bold text-gray-900 dark:text-white'>Rp. 1.000.000</td>
+                    <td className='p-4 text-base font-bold text-right text-gray-900 dark:text-white'>Rp. 1.000.000</td>
                   </tr>
                   <tr>
                     <td className='whitespace-nowrap py-4 md:w-[384px]'>
-                      <div className='flex items-center lg:ml-6 gap-4'>
+                      <div className='flex items-center gap-4 lg:ml-6'>
                         <Image
                           src='/nikee.png'
                           alt='Flowbite Logo'
@@ -182,12 +180,12 @@ const Page = () => {
                         </a>
                       </div>
                     </td>
-                    <td className='p-4 text-right text-base font-bold text-gray-900 dark:text-white'>Rp. 1.000.000</td>
+                    <td className='p-4 text-base font-bold text-right text-gray-900 dark:text-white'>Rp. 1.000.000</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <div className='mt-4 lg:ml-6 mr-6 space-y-6'>
+            <div className='mt-4 mr-6 space-y-6 lg:ml-6'>
               <h4 className='text-xl font-semibold text-gray-900 dark:text-white'>Order summary</h4>
               <div className='space-y-4'>
                 <div className='space-y-2'>
@@ -204,7 +202,7 @@ const Page = () => {
                     <dd className='text-base font-medium text-gray-900 dark:text-white'>Rp. 1.000.000</dd>
                   </dl>
                 </div>
-                <dl className='flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700'>
+                <dl className='flex items-center justify-between gap-4 pt-2 border-t border-gray-200 dark:border-gray-700'>
                   <dt className='text-lg font-bold text-gray-900 dark:text-white'>Total Payment</dt>
                   <dd className='text-lg font-bold text-gray-900 dark:text-white'>Rp. 10.000.000</dd>
                 </dl>
@@ -214,7 +212,7 @@ const Page = () => {
                   id='terms-checkbox-2'
                   type='checkbox'
                   value=''
-                  className='h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600'
+                  className='w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600'
                 />
                 <label
                   htmlFor='terms-checkbox-2'
@@ -225,7 +223,7 @@ const Page = () => {
                   <a
                     href='#'
                     title=''
-                    className='text-primary-700 underline hover:no-underline dark:text-primary-500'
+                    className='underline text-primary-700 hover:no-underline dark:text-primary-500'
                   >
                     Terms and Conditions
                   </a>{' '}

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { FaEye } from 'react-icons/fa';
 import { FaEyeLowVision } from 'react-icons/fa6';
 
-const Input = ({ name, placeholder, icon, value, onChange, type = 'text', error }) => {
+const Input = ({ name, placeholder, icon, value, onChange, type = 'text', error, label = true }) => {
   const [show, setShow] = useState(true);
   const [inputType, setInputType] = useState(type);
 
@@ -19,7 +19,13 @@ const Input = ({ name, placeholder, icon, value, onChange, type = 'text', error 
     }
   };
   return (
-    <div>
+    <div className='my-3.5'>
+      <label
+        htmlFor={name}
+        className={`${label ? 'block' : 'hidden'} block text-base font-medium mb-1  text-black capitalize`}
+      >
+        {name}
+      </label>
       <div className='mb-4'>
         <div className='relative flex rounded-md shadow-sm ring-1 ring-inset ring-strokeInput'>
           {type === 'textarea' ? (
