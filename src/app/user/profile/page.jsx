@@ -2,17 +2,37 @@
 import Input from '@/src/components/Input';
 import Navbar from '@/src/components/Navbar';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IoMdArrowBack } from 'react-icons/io';
 import { FaImage } from 'react-icons/fa';
 import { RiEdit2Line } from 'react-icons/ri';
 import { MdOutlineLogout } from 'react-icons/md';
+import { FaRegAddressBook } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+import { clearState, getUserData, profileSelector } from '@/src/utils/slices/profileSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const page = () => {
   const router = useRouter();
+  const { data: session, status } = useSession();
+  const token = session?.user?.accessToken;
+  const dispatch = useDispatch();
+
+  const { userData } = useSelector(profileSelector);
+  console.log(userData);
+
+  const handleGetProfile = () => {
+    dispatch(getUserData({ token }));
+  };
+
+  useEffect(() => {
+    if (status === 'authenticated' && token) {
+      handleGetProfile();
+      dispatch(clearState());
+    }
+  }, [token]);
 
   const handleLogout = () => {
     Swal.fire({
@@ -67,6 +87,17 @@ const page = () => {
                 >
                   <p className='flex items-center font-medium text-cream1'>
                     <span className='mr-3'>
+                      <FaRegAddressBook className='text-2xl' />
+                    </span>{' '}
+                    Alamat Saya
+                  </p>
+                </li>
+                <li
+                  className='py-2 mb-4 border-b cursor-pointer border-b-strokeInput'
+                  onClick={handleLogout}
+                >
+                  <p className='flex items-center font-medium text-cream1'>
+                    <span className='mr-3'>
                       <MdOutlineLogout className='text-2xl' />
                     </span>{' '}
                     Keluar
@@ -110,17 +141,12 @@ const page = () => {
                 <Input
                   placeholder={'Name'}
                   name={'name'}
-                  value={'syifa sukma'}
+                  value={userData?.name}
                 />
                 <Input
-                  placeholder={'syifasukma@gmail.com'}
+                  placeholder={'email'}
                   name={'email'}
-                  value={'email'}
-                />
-                <Input
-                  placeholder={'Masukkan tempat tinggal'}
-                  name={'address'}
-                  value={''}
+                  value={userData?.email}
                 />
                 <button className='w-full py-3 font-medium text-white rounded-full bg-cream1'>
                   Simpan Profil Saya
