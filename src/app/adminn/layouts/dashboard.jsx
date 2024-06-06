@@ -6,9 +6,9 @@ import {
   DashboardNavbar,
   Configurator,
   Footer,
-} from "@/widgets/layout";
-import routes from "@/routes";
-import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
+} from "@/src/app/adminn/widgets/layout";
+import routes from "@/src/app/adminn/routes";
+import { useMaterialTailwindController, setOpenConfigurator } from "@/src/app/adminn/context";
 
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import {
   Navbar as MTNavbar,
   Collapse,
@@ -102,6 +102,6 @@ Navbar.propTypes = {
   action: PropTypes.node,
 };
 
-Navbar.displayName = "/src/widgets/layout/navbar.jsx";
+Navbar.displayName = "@/app/src/adminn/widgets/layout/navbar.jsx";
 
 export default Navbar;

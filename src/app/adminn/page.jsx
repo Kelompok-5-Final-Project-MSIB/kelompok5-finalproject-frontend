@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext } from 'react';
+import React from "react";
+// import { Dashboard } from "@/src/app/adminn/layouts/layouts";
 
 import {
   Typography,
@@ -22,7 +23,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { StatisticsCard } from "@/src/app/adminn/widgets/cards/statistics-card";
 import { StatisticsChart } from "@/src/app/adminn/widgets/charts/statistics-chart";
-
+// import Navbar from "@/src/app/adminn/widgets/layout/navbar";
 import {
   statisticsCardsData,
   statisticsChartsData,
@@ -35,6 +36,7 @@ export function Home() {
   return (
     <div className="mt-12">
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
+        {/* <Navbar/> */}
         {statisticsCardsData.map(({ icon, title, footer, ...rest }) => (
           <StatisticsCard
             key={title}
