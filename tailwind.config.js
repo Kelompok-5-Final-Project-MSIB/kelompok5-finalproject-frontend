@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const withMT = require("@material-tailwind/react/utils/withMT");
+const withMT = require('@material-tailwind/react/utils/withMT');
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -17,6 +17,7 @@ module.exports = {
         black2: '#2D2D2D',
         cream1: '#D2B183',
         cream2: '#E1C8A9',
+        cream3: '#A58B67',
       },
     },
   },
