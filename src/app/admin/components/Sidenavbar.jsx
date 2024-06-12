@@ -67,7 +67,7 @@ export default function Sidenavbar() {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        signOut();
+        signOut({ callbackUrl: '/login' });
       }
     });
   };
