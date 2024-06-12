@@ -47,13 +47,13 @@ const page = () => {
   };
 
   const fetchProducts = () => {
-    dispatch(getAllProduct({ current: currentPage, name: search }));
+    dispatch(getAllProduct({ current: currentPage, name: search, token }));
   };
 
   useEffect(() => {
     dispatch(clearState());
     fetchProducts();
-  }, [search]);
+  }, [search, session, currentPage]);
   return (
     <section>
       <Navbar />
@@ -92,18 +92,19 @@ const page = () => {
                 <div className='flex flex-col gap-5 md:flex-row lg:flex-row'>
                   <SkeletonProduct />
                   <SkeletonProduct />
-                  <SkeletonProduct />
                 </div>
               </>
             ) : (
               <>
-                {products?.map((prod) => (
-                  <Card
-                    key={prod.id}
-                    {...prod}
-                    token={token}
-                  />
-                ))}
+                {products
+                  ?.filter((prod) => prod.status === 'available')
+                  ?.map((prod) => (
+                    <Card
+                      key={prod.id}
+                      {...prod}
+                      token={token}
+                    />
+                  ))}
               </>
             )}
           </div>

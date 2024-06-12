@@ -2,9 +2,9 @@
 import Navbar from '@/src/components/Navbar';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoMdArrowBack } from 'react-icons/io';
-import { productSelector, getProductById, clearState, setCurrentPage } from '@/src/utils/slices/productSlice';
+import { productSelector, getProductById, clearState } from '@/src/utils/slices/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { calculateDiscountedPrice, formatToCurrency } from '@/src/utils/convertion';
 import SkeletonDetailProduct from '@/src/components/skeleton/SkeletonDetailProduct';
@@ -16,11 +16,12 @@ const page = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { data: session } = useSession();
-  const { isLoading, product } = useSelector(productSelector);
+  const { isLoading, productById: product } = useSelector(productSelector);
+  const [selectedImage, setSelectedImage] = useState(product?.image);
   const { errorMessage } = useSelector(cartSelector);
   const token = session?.user?.accessToken;
   const fetchProducts = () => {
-    dispatch(getProductById(id));
+    dispatch(getProductById({ id, token }));
   };
 
   const handleAddToCart = (id, token) => {
@@ -34,7 +35,7 @@ const page = () => {
   useEffect(() => {
     dispatch(clearState());
     fetchProducts();
-  }, []);
+  }, [session]);
 
   if (isLoading) {
     return (
@@ -63,27 +64,36 @@ const page = () => {
           {/* image */}
           <div className='flex items-center gap-3.5'>
             <div className='flex flex-col gap-3.5'>
-              <div className='w-24 h-24'>
+              <div
+                className='w-24 h-24'
+                onClick={() => setSelectedImage(product?.image)}
+              >
                 <Image
-                  src={'/shoes2.png'}
+                  src={product?.image}
                   width={500}
                   height={500}
                   alt='shoes'
                   className='w-[100%]'
                 />
               </div>
-              <div className='w-24 h-24'>
+              <div
+                className='w-24 h-24'
+                onClick={() => setSelectedImage(product?.image2)}
+              >
                 <Image
-                  src={'/shoes1.png'}
+                  src={product?.image2}
                   width={500}
                   height={500}
                   alt='shoes'
                   className='w-[100%]'
                 />
               </div>
-              <div className='w-24 h-24'>
+              <div
+                className='w-24 h-24'
+                onClick={() => setSelectedImage(product?.image3)}
+              >
                 <Image
-                  src={'/shoes2.png'}
+                  src={product?.image3}
                   width={500}
                   height={500}
                   alt='shoes'
@@ -93,7 +103,7 @@ const page = () => {
             </div>
             <div className='w-80 h-80'>
               <img
-                src={product.image}
+                src={selectedImage}
                 alt='shoes'
                 className='object-cover w-full h-full'
               />
@@ -101,16 +111,16 @@ const page = () => {
           </div>
           {/* desc */}
           <div className='pr-20'>
-            <h1 className='text-2xl font-semibold'>{product.name_product}</h1>
+            <h1 className='text-2xl font-semibold'>{product?.name_product}</h1>
             <h3 className='mt-2 text-lg text-textInput'>
-              {formatToCurrency(calculateDiscountedPrice(product.price, product.discount))}
+              {formatToCurrency(calculateDiscountedPrice(product?.price, product?.discount))}
             </h3>
             <hr className='h-px my-4 border-0 bg-strokeInput'></hr>
 
-            <p className='mb-3 pr-28'>{product.desc}</p>
+            <p className='mb-3 pr-28'>{product?.desc}</p>
             <div className='flex flex-col'>
               Size
-              <div className='mt-1 px-2.5 py-2 text-white rounded-md w-fit bg-cream1'>{product.size}</div>
+              <div className='mt-1 px-2.5 py-2 text-white rounded-md w-fit bg-cream1'>{product?.size}</div>
             </div>
             <div className='flex mt-4'>
               <button
@@ -135,7 +145,7 @@ const page = () => {
           <div className='rounded-md mt-14 bg-cream1'>
             <h1 className='px-6 py-6 text-base font-semibold text-white'>Product Information</h1>
             <hr className='h-px border-0 bg-strokeInput'></hr>
-            <p className='py-6 pl-6 pr-16'>{product.desc}</p>
+            <p className='py-6 pl-6 pr-16'>{product?.desc}</p>
           </div>
         </div>
       </div>

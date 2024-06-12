@@ -33,9 +33,9 @@ const Input = ({ name, placeholder, icon, value, onChange, type = 'text', error,
               name={name}
               id={name}
               autoComplete={name}
-              className='flex-1 block w-full px-5 py-3 font-medium bg-transparent border-0 text-primary placeholder:text-grey sm:text-sm sm:leading-6 placeholder:font-medium placeholder:text-sm'
+              className='flex-1 block w-full px-5 py-3 font-medium text-gray-900 bg-transparent border-0 placeholder:text-grey sm:text-sm sm:leading-6 placeholder:font-medium placeholder:text-sm'
               placeholder={placeholder}
-              defaultValue={value}
+              value={value}
               onChange={onChange}
             />
           ) : (
@@ -45,9 +45,9 @@ const Input = ({ name, placeholder, icon, value, onChange, type = 'text', error,
                 name={name}
                 id={name}
                 autoComplete={name}
-                className='block w-full px-5 py-3 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-strokeInput'
+                className='block w-full px-5 py-3 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-strokeInput placeholder:text-grey sm:text-sm sm:leading-6 placeholder:font-medium placeholder:text-sm'
                 placeholder={placeholder}
-                defaultValue={value}
+                value={value}
                 onChange={onChange}
               />
               {icon ? (
