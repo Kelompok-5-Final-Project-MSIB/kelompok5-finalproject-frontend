@@ -34,9 +34,14 @@ export default function Sidenavbar() {
       label: 'Transaksi',
     },
     {
-      id: '/admin/user',
+      id: '/admin/page.jsx',
       icon: <PiUserBold />,
       label: 'User',
+    },
+    {
+      id: '/admin/admin',
+      icon: <PiUserBold />,
+      label: 'admin',
     },
   ];
 
