@@ -4,6 +4,7 @@ import { calculateDiscountedPrice } from '../utils/convertion';
 import { useDispatch } from 'react-redux';
 import { deleteCart, getAllProductCart } from '../utils/slices/cartSlice';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 const ProductCard = ({ product, isInCart, token, onCheckboxChange, isChecked }) => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -31,8 +32,10 @@ const ProductCard = ({ product, isInCart, token, onCheckboxChange, isChecked }) 
           />
         )}
         <div className={`w-20 h-20  ${isInCart ? 'ml-8' : 'ml-0'}`}>
-          <img
+          <Image
             src={product.image}
+            width={200}
+            height={200}
             alt={product.name_product}
             className='w-full'
           />

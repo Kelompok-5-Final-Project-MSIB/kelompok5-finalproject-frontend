@@ -69,7 +69,7 @@ const Page = () => {
 
   useEffect(() => {
     if (role === 'admin') {
-      router.push('/admin');
+      router.push('/admin/dashboard');
     }
     if (role === 'user') {
       router.push('/');

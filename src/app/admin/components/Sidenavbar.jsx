@@ -10,6 +10,7 @@ import { signOut } from 'next-auth/react';
 import Swal from 'sweetalert2';
 import { PiUserBold } from 'react-icons/pi';
 import { AiOutlineProduct } from 'react-icons/ai';
+import { RiAdminLine } from 'react-icons/ri';
 
 export default function Sidenavbar() {
   const url = usePathname();
@@ -34,13 +35,13 @@ export default function Sidenavbar() {
       label: 'Transaksi',
     },
     {
-      id: '/admin/page.jsx',
+      id: '/admin/user',
       icon: <PiUserBold />,
       label: 'User',
     },
     {
       id: '/admin/admin',
-      icon: <PiUserBold />,
+      icon: <RiAdminLine />,
       label: 'admin',
     },
   ];

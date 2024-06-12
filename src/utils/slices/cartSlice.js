@@ -22,10 +22,10 @@ export const getAllProductCart = createAsyncThunk('cart/getAllProductCart', asyn
 
 export const addCart = createAsyncThunk('cart/addCart', async ({ id_product, token = '' }, thunkAPI) => {
   try {
-    let link = `http://localhost:8000/api/cart`;
+    let link = `http://localhost:8000/api/cart/${id_product}`;
     const response = await axios.post(
       link,
-      { id_product },
+      {},
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -39,6 +39,7 @@ export const addCart = createAsyncThunk('cart/addCart', async ({ id_product, tok
       return thunkAPI.rejectWithValue(data);
     }
   } catch (error) {
+    console.log(error);
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
@@ -117,6 +118,7 @@ export const cartSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(addCart.fulfilled, (state, { payload }) => {
+        console.log(payload);
         state.cartProduct = payload.data;
         state.isLoading = false;
       })

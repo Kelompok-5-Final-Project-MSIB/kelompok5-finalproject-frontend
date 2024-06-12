@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCart, cartSelector } from '@/src/utils/slices/cartSlice';
 import ModalAlert from './alert/ModalAlert';
+import Image from 'next/image';
 
 const Card = ({ id_product, discount, name_product, price, image, token }) => {
   const { errorMessage } = useSelector(cartSelector);
@@ -16,7 +17,7 @@ const Card = ({ id_product, discount, name_product, price, image, token }) => {
   };
 
   const handleAddToCart = (id, token) => {
-    dispatch(addCart({ id_product: id, token: token }));
+    dispatch(addCart({ id_product: id, token }));
     if (errorMessage.status === 'error') {
       ModalAlert('Cart', 'error', errorMessage?.message);
     }
@@ -30,8 +31,10 @@ const Card = ({ id_product, discount, name_product, price, image, token }) => {
           onClick={() => goToCourseDetail(id_product)}
           className='flex items-center justify-center w-full overflow-hidden shadow-lg cursor-pointer h-44'
         >
-          <img
+          <Image
             src={image}
+            width={300}
+            height={300}
             alt='image shoes'
             className='bg-center bg-cover'
           />

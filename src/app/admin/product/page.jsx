@@ -17,7 +17,7 @@ function page() {
   const pages = Array.from({ length: Math.ceil(product.total / product.per_page) }, (_, i) => i + 1);
   const search = searchParams.get('search') || '';
   const token = session?.user?.accessToken;
-  // console.log(token);
+  console.log(token);
   const handlePageChange = (page) => {
     dispatch(setCurrentPage(page));
     dispatch(getAllProduct({ current: page, name: search }));
@@ -26,7 +26,7 @@ function page() {
   const handleSearch = (e) => {
     setNameProduct(e.target.value);
     router.push(`/admin/product?page=${currentPage}&search=${nameProduct}`, { scroll: false });
-    dispatch(getAllProduct({ current: currentPage, name: search }));
+    dispatch(getAllProduct({ current: currentPage, name: search, token }));
     if (!e.target.value) {
       router.push(`/admin/product?page=${currentPage}`, { scroll: false });
     }
@@ -37,7 +37,7 @@ function page() {
       dispatch(getAllProduct({ current: currentPage, name: search, token }));
     }
     dispatch(clearState());
-  }, [session, search, currentPage]);
+  }, [token, search, currentPage, dispatch]);
 
   return (
     <section className='px-4 mt-12 lg:px-10'>

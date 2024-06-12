@@ -46,11 +46,11 @@ export const getProductById = createAsyncThunk('product/getProductById', async (
 export const updateProduct = createAsyncThunk('product/updateProduct', async ({ dataa, id, token }, thunkAPI) => {
   try {
     console.log(dataa);
-    const formData = new FormData();
-    Object.keys(dataa).forEach((key) => formData.append(key, dataa[key]));
+    // const formData = new FormData();
+    // Object.keys(dataa).forEach((key) => formData.append(key, dataa[key]));
 
     let link = `http://localhost:8000/api/products/${id}`;
-    const response = await axios.post(link, formData, {
+    const response = await axios.post(link, dataa, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -165,7 +165,6 @@ export const productSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getAllProduct.fulfilled, (state, { payload }) => {
-        console.log(payload.data);
         state.product = payload.data;
         state.isLoading = false;
       })
@@ -178,7 +177,6 @@ export const productSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getProductById.fulfilled, (state, { payload }) => {
-        // console.log(payload);
         state.productById = payload.data;
         state.isLoading = false;
       })
@@ -215,8 +213,7 @@ export const productSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(updateProduct.fulfilled, (state, { payload }) => {
-        console.log(payload);
-        state.productById = payload.data;
+        state.productById = payload;
         state.isLoading = false;
       })
       .addCase(updateProduct.rejected, (state, { payload }) => {

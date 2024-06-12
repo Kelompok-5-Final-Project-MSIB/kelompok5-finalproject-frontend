@@ -42,7 +42,7 @@ const page = () => {
       dispatch(clearState());
       dispatch(getAllProductCart({ token: token }));
     }
-  }, [token]);
+  }, [token, dispatch]);
   return (
     <section>
       <Navbar />

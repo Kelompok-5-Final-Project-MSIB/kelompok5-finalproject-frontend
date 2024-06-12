@@ -5,6 +5,7 @@ import { deleteProduct } from '@/src/utils/slices/productSlice';
 import ModalAlert from '@/src/components/alert/ModalAlert';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 
 function ProductList({ product }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -42,10 +43,12 @@ function ProductList({ product }) {
           scope='row'
           className='flex flex-col items-center px-4 py-3 font-medium text-gray-900 lg:flex-row whitespace-nowrap'
         >
-          <img
+          <Image
             className='mr-4 w-14'
             src={product?.image}
             alt='Jese image'
+            width={100}
+            height={100}
           />
           <p className='font-normal text-black2'>{product.name_product}</p>
         </th>

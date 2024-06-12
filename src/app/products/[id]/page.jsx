@@ -102,9 +102,12 @@ const page = () => {
               </div>
             </div>
             <div className='w-80 h-80'>
-              <img
+              <Image
                 src={selectedImage}
                 alt='shoes'
+                width={500}
+                height={500}
+                priority={false}
                 className='object-cover w-full h-full'
               />
             </div>

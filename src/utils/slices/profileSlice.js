@@ -21,6 +21,21 @@ export const getUserData = createAsyncThunk('profile/getUserData', async ({ toke
   }
 });
 
+export const getAllUser = createAsyncThunk('profile/getAllUser', async (thunkAPI) => {
+  try {
+    let link = `http://localhost:8000/api/allUsers`;
+    const response = await axios.get(link);
+    let data = await response.data;
+    if (response.status === 200) {
+      return data;
+    } else {
+      return thunkAPI.rejectWithValue(data);
+    }
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
 export const profileSlice = createSlice({
   name: 'profile',
   initialState: {
@@ -47,6 +62,19 @@ export const profileSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getUserData.rejected, (state, { payload }) => {
+        state.isLoading = true;
+        state.isError = true;
+        state.errorMessage = payload?.message || 'failed to fetch profile';
+      })
+      .addCase(getAllUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllUser.fulfilled, (state, { payload }) => {
+        // console.log(payload);
+        state.userData = payload.data;
+        state.isLoading = false;
+      })
+      .addCase(getAllUser.rejected, (state, { payload }) => {
         state.isLoading = true;
         state.isError = true;
         state.errorMessage = payload?.message || 'failed to fetch profile';
