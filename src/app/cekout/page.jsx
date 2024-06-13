@@ -1,7 +1,11 @@
+'use client';
 import Navbar from '@/src/components/Navbar';
 import Image from 'next/image';
 import Footer from '@/src/components/Footer';
-import Address from '@/src/app/cekout/components/Address';
+import Address from '@/src/app/cekout/components/EditAddress';
+
+import React from 'react';
+import EditAddress from '@/src/app/cekout/components/EditAddress';
 
 const Page = () => {
   return (
@@ -75,15 +79,7 @@ const Page = () => {
                 <h4 className='mb-2 text-sm font-normal text-gray-500 lg:ml-6 lg:text-left'>
                   132 Dartmouth Street Boston
                 </h4>
-                <Address />
-                {/* <a href="#" type="button"
-                   className="text-white bg-amber-500 border-2 border-amber-500 hover:bg-amber-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-cream2 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center lg:ml-auto lg:mr-6 mt-2 sm:mt-4 lg:mt-0">
-                 <svg className="w-6 h-6 mr-2 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"/>
-</svg>
-                  <span>Edit Address</span>
-                </a> */}
+                <EditAddress />
               </div>
             </div>
           </div>

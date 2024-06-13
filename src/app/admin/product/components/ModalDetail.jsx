@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const ModalDetail = ({ setIsOpenModal, idProduct, token }) => {
   const dispatch = useDispatch();
   const { isLoading, productById: product } = useSelector(productSelector);
-  const [selectedImage, setSelectedImage] = useState(product?.image);
+  const [selectedImage, setSelectedImage] = useState(product.image ? product.image : '/picture.jpg');
 
   useEffect(() => {
     dispatch(clearState());
@@ -56,6 +56,7 @@ const ModalDetail = ({ setIsOpenModal, idProduct, token }) => {
                 alt={product?.name_product}
                 width={200}
                 height={200}
+                priority={true}
                 className='w-full mb-6 mr-6 '
               />
               <nav aria-label='Page navigation example mt-2'>

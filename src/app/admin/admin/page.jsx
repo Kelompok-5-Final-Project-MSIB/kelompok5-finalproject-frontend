@@ -67,9 +67,10 @@ const Page = () => {
                     ></input>
                   </div>
 
-                  <button
-                    type='submit'
-                    className='flex items-center justify-center px-4 py-2 ml-4 text-sm font-medium text-white rounded-lg bg-amber-500 hover:bg-amber-600 focus:ring-4 focus:ring-amber-300'
+                  <a
+                    href='/admin/product/create'
+                    type='button'
+                    className='flex items-center justify-center px-4 py-2 ml-4 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:ring-red-300'
                   >
                     <svg
                       className='h-3.5 w-3.5 mr-2'
@@ -83,11 +84,11 @@ const Page = () => {
                         strokeLinecap='round'
                         strokeLinejoin='round'
                         strokeWidth='2'
-                        d='m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z'
+                        d='M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
                       />
                     </svg>
-                    Cari
-                  </button>
+                    Tambah
+                  </a>
                 </form>
               </div>
             </div>

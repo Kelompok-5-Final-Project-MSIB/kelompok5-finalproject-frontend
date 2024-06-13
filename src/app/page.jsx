@@ -10,6 +10,7 @@ import { FaCartShopping } from 'react-icons/fa6';
 import { productSelector, getAllProduct, clearState, setCurrentPage } from '@/src/utils/slices/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import SkeletonProduct from '@/src/components/skeleton/SkeletonProduct';
+import { useSession } from 'next-auth/react';
 
 const merk = [
   {
@@ -47,15 +48,17 @@ const page = () => {
   //   console.log(metric);
   // });
   const { isLoading, product, currentPage } = useSelector(productSelector);
+  const { data: session } = useSession();
   const dispatch = useDispatch();
+  const token = session?.user?.accessToken;
   const fetchProducts = () => {
-    dispatch(getAllProduct({ current: currentPage }));
+    dispatch(getAllProduct({ current: currentPage, token: token }));
   };
 
   useEffect(() => {
     dispatch(clearState());
     fetchProducts();
-  }, []);
+  }, [token]);
   const products = product.data;
 
   return (

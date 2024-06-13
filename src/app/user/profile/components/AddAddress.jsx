@@ -1,15 +1,86 @@
+'use client';
 import Input from '@/src/components/Input';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { addAddress, addressSelector, getCity, getProvince } from '@/src/utils/slices/addressSlice';
+import { useSession } from 'next-auth/react';
+import { useDispatch, useSelector } from 'react-redux';
+import Dropdown from '@/src/components/Dropdown';
 
-const Address = () => {
+const AddAddress = () => {
+  const [selectedProvince, setSelectedProvince] = useState('1');
+  const [selectedProvinceName, setSelectedProvinceName] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedCityName, setSelectedCityName] = useState('');
+  const [zipCode, setZipCode] = useState('');
+  const [detailAddress, setDetailAddress] = useState('');
+
+  const [error, setError] = useState('');
+  const { provinceData, cityData: city } = useSelector(addressSelector);
+  const { data: session } = useSession();
+  const dispatch = useDispatch();
+  const token = session?.user?.accessToken;
+  let province = provinceData.results;
+  // console.log(province);
+  // console.log(selectedProvinceName);
+
+  const handleChange = (e) => {
+    const selectedId = e.target.value;
+    const selectedLabel = province.find((option) => option.province_id === selectedId)?.province || '';
+    setSelectedProvince(e.target.value);
+    setSelectedProvinceName(selectedLabel);
+    console.log(selectedLabel);
+    if (e.target.value === '') {
+      setError('Please select an option');
+    } else {
+      setError('');
+    }
+  };
+
+  const handleCityChange = (e) => {
+    const selectedId = e.target.value;
+    const selectedLabel = city.find((option) => option.city_id === selectedId)?.city_name || '';
+    setSelectedCity(selectedId);
+    setSelectedCityName(selectedLabel);
+    if (e.target.value === '') {
+      setError('Please select an option');
+    } else {
+      setError('');
+    }
+  };
+
+  const handleClickAddress = (e) => {
+    e.preventDefault();
+    const dataa = {
+      province: selectedProvinceName,
+      id_province: selectedProvince,
+      id_city: selectedCity,
+      city: selectedCityName,
+      zip_code: zipCode,
+      details: detailAddress,
+    };
+    if (error) {
+      return;
+    }
+    dispatch(addAddress({ dataa, token }));
+    // console.log(dataa);
+  };
+
+  useEffect(() => {
+    dispatch(getCity({ id: selectedProvince, token }));
+  }, [selectedProvince, token, dispatch]);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(getProvince({ token }));
+    }
+  }, [token, dispatch]);
   return (
     <>
       <section className='lg:ml-auto'>
         <button
           data-modal-target='crud-modal'
           data-modal-toggle='crud-modal'
-          className='text-white bg-amber-500 border-2 border-amber-500 hover:bg-amber-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-cream2 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center lg:ml-auto lg:mr-6 mt-2 sm:mt-4 lg:mt-0'
-          type='button'
+          className='inline-flex items-center w-full mt-2 font-medium text-center border-none text-cream1 hover:text-cream3 lg:ml-auto lg:mr-6 sm:mt-4 lg:mt-0'
         >
           <svg
             className='w-6 h-6 mr-2 '
@@ -22,25 +93,25 @@ const Address = () => {
           >
             <path
               stroke='currentColor'
-              stroke-linecap='round'
-              stroke-linejoin='round'
-              stroke-width='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth='2'
               d='M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z'
             />
             <path
               stroke='currentColor'
-              stroke-linecap='round'
-              stroke-linejoin='round'
-              stroke-width='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth='2'
               d='M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z'
             />
           </svg>
-          <span>Edit Address</span>
+          <span>Tambah Alamat</span>
         </button>
 
         <div
           id='crud-modal'
-          tabindex='-1'
+          tabIndex='-1'
           aria-hidden='true'
           className='hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full'
         >
@@ -62,9 +133,9 @@ const Address = () => {
                   >
                     <path
                       stroke='currentColor'
-                      stroke-linecap='round'
-                      stroke-linejoin='round'
-                      stroke-width='2'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
                       d='m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6'
                     />
                   </svg>
@@ -74,39 +145,68 @@ const Address = () => {
               <form action='#'>
                 <div className='relative grid gap-4 p-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5'>
                   <div className='w-full'>
-                    <Input
+                    {/* <Input
                       placeholder={'Province'}
                       name={'province'}
                       type='text'
-                    />
+                    /> */}
+
+                    <Dropdown
+                      name='province'
+                      value={selectedProvince}
+                      onChange={handleChange}
+                      error={error}
+                    >
+                      {province?.map((option, index) => (
+                        <option
+                          key={index}
+                          value={option.province_id}
+                        >
+                          {option.province}
+                        </option>
+                      ))}
+                    </Dropdown>
                   </div>
 
                   <div className='w-full'>
-                    <Input
+                    {/* <Input
                       placeholder={'city'}
                       name={'city'}
                       type='text'
-                    />
+                    /> */}
+                    {city && (
+                      <Dropdown
+                        name='city'
+                        value={selectedCity}
+                        onChange={handleCityChange}
+                        error={error}
+                      >
+                        {city.map((option, index) => (
+                          <option
+                            key={index}
+                            value={option.city_id}
+                          >
+                            {option.city_name}
+                          </option>
+                        ))}
+                      </Dropdown>
+                    )}
                   </div>
                   <div className='w-full'>
                     <Input
                       placeholder={'zip code'}
                       name={'zip_code'}
                       type='text'
+                      onChange={(e) => setZipCode(e.target.value)}
                     />
                   </div>
-                  <div className='w-full'>
-                    <Input
-                      placeholder={'shopping cost'}
-                      name={'shopping_cost'}
-                      type='text'
-                    />
-                  </div>
+
                   <div className='sm:col-span-2'>
                     <Input
                       placeholder={'detail address'}
                       name={'detail_adress'}
                       type='textarea'
+                      onChange={(e) => setDetailAddress(e.target.value)}
                     />
                   </div>
                 </div>
@@ -114,6 +214,7 @@ const Address = () => {
                   <button
                     type='submit'
                     className='text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800'
+                    onClick={handleClickAddress}
                   >
                     Update Address
                   </button>
@@ -145,4 +246,4 @@ const Address = () => {
   );
 };
 
-export default Address;
+export default AddAddress;

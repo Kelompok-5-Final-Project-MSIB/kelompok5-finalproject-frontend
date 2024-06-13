@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 import { signOut, useSession } from 'next-auth/react';
 import { clearState, getUserData, profileSelector } from '@/src/utils/slices/profileSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import AddAddress from './components/AddAddress';
 
 const page = () => {
   const router = useRouter();
@@ -70,10 +71,10 @@ const page = () => {
             {/* left */}
             <div className='w-full md:w-1/2 md:pr-20 lg:pr-56'>
               <ul>
-                <li className='py-2 mb-4 border-b border-b-strokeInput'>
+                <li className='py-2 mb-4 border-b cursor-pointer border-b-strokeInput'>
                   <p
                     href=''
-                    className='flex items-center font-medium text-cream1'
+                    className='flex items-center font-medium hover:text-cream3 text-cream1'
                   >
                     <span className='mr-3'>
                       <RiEdit2Line className='text-2xl' />
@@ -81,22 +82,20 @@ const page = () => {
                     Profile Saya
                   </p>
                 </li>
-                <li
-                  className='py-2 mb-4 border-b cursor-pointer border-b-strokeInput'
-                  onClick={handleLogout}
-                >
-                  <p className='flex items-center font-medium text-cream1'>
+                <li className='py-2 mb-4 border-b cursor-pointer border-b-strokeInput'>
+                  {/* <p className='flex items-center font-medium text-cream1'>
                     <span className='mr-3'>
                       <FaRegAddressBook className='text-2xl' />
                     </span>{' '}
                     Alamat Saya
-                  </p>
+                  </p> */}
+                  <AddAddress />
                 </li>
                 <li
-                  className='py-2 mb-4 border-b cursor-pointer border-b-strokeInput'
+                  className='py-2 mb-4 border-b cursor-pointer hover:text-cream3 border-b-strokeInput'
                   onClick={handleLogout}
                 >
-                  <p className='flex items-center font-medium text-cream1'>
+                  <p className='flex items-center font-medium hover:text-cream3 text-cream1'>
                     <span className='mr-3'>
                       <MdOutlineLogout className='text-2xl' />
                     </span>{' '}

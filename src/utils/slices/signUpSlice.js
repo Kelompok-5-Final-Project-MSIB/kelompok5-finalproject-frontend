@@ -33,6 +33,34 @@ export const signUpUser = createAsyncThunk(
   },
 );
 
+export const signUpAdmin = createAsyncThunk('signUp/signUpAdmin', async ({ userData, token }, thunkAPI) => {
+  try {
+    let link = `http://localhost:8000/api/register`;
+    const params = {
+      name,
+      email,
+      password,
+      password_confirmation,
+      role: 'admin',
+    };
+    const response = await axios.post(link, params, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    let data = await response.data;
+    if (response.status === 200) {
+      return data;
+    } else {
+      return thunkAPI.rejectWithValue(data);
+    }
+  } catch (error) {
+    console.log('error', error.response.data);
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
 export const signUpSlice = createSlice({
   name: 'signUp',
   initialState: {

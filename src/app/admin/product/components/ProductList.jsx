@@ -49,6 +49,7 @@ function ProductList({ product }) {
             alt='Jese image'
             width={100}
             height={100}
+            priority={true}
           />
           <p className='font-normal text-black2'>{product.name_product}</p>
         </th>
