@@ -94,8 +94,9 @@ const page = () => {
               <Image
                 src='/header.png'
                 alt='Logo'
-                width={500}
-                height={500}
+                width={300}
+                height={300}
+                priority={true}
                 className='w-[200%] md:w-[160%] lg:w-[88%]'
               />
             </div>

@@ -10,8 +10,9 @@ const Footer = () => {
             <Image
               src='/logo_navbar.svg'
               alt='Logo'
-              width={500}
-              height={500}
+              width={250}
+              height={250}
+              priority={true}
               className='w-[120%] md:w-[58%] lg:w-[100%]'
             />
           </div>

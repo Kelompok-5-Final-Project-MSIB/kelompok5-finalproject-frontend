@@ -37,6 +37,7 @@ const ProductCard = ({ product, isInCart, token, onCheckboxChange, isChecked }) 
             width={200}
             height={200}
             alt={product.name_product}
+            priority={true}
             className='w-full'
           />
         </div>

@@ -106,6 +106,7 @@ const Page = () => {
                           alt='Flowbite Logo'
                           width={64}
                           height={64}
+                          priority={true}
                           className='object-contain w-full h-full'
                         />
                         <a
@@ -126,6 +127,7 @@ const Page = () => {
                           alt='Flowbite Logo'
                           width={64}
                           height={64}
+                          priority={true}
                           className='object-contain w-full h-full'
                         />
                         <a
@@ -146,6 +148,7 @@ const Page = () => {
                           alt='Flowbite Logo'
                           width={64}
                           height={64}
+                          priority={true}
                           className='object-contain w-full h-full'
                         />
                         <a
@@ -166,6 +169,7 @@ const Page = () => {
                           alt='Flowbite Logo'
                           width={64}
                           height={64}
+                          priority={true}
                           className='object-contain w-full h-full'
                         />
                         <a

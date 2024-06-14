@@ -1,6 +1,17 @@
-import React from 'react';
+'use client';
+import { getAllProduct, getBrand, productSelector } from '@/src/utils/slices/productSlice';
+import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Filter = ({ style }) => {
+const Filter = ({ style, token, updateFilters }) => {
+  const { brands } = useSelector(productSelector);
+  const dispatch = useDispatch();
+
+  // console.log(brands);
+  useEffect(() => {
+    dispatch(getBrand({ token }));
+  }, [dispatch, token]);
   return (
     <>
       <div className={`${style} px-4 py-2 bg-cream1 w-[80%] md:w-[50%] lg:w-[25%] h-fit rounded-lg shadow-lg`}>
@@ -25,47 +36,27 @@ const Filter = ({ style }) => {
         <div>
           <h1 className='text-lg font-semibold'>Brand</h1>
           <div className='mt-2'>
-            <a
-              href='#'
-              className='flex justify-between mt-1.5'
-            >
-              <p>Nike</p>
-              <p className='text-textInput'>10</p>
-            </a>
-            <a
-              href='#'
-              className='flex justify-between mt-1.5'
-            >
-              <p>Nike</p>
-              <p className='text-textInput'>10</p>
-            </a>
-            <a
-              href='#'
-              className='flex justify-between mt-1.5'
-            >
-              <p>Nike</p>
-              <p className='text-textInput'>10</p>
-            </a>
-            <a
-              href='#'
-              className='flex justify-between mt-1.5'
-            >
-              <p>Nike</p>
-              <p className='text-textInput'>10</p>
-            </a>
-            <a
-              href='#'
-              className='flex justify-between mt-1.5'
-            >
-              <p>Nike</p>
-              <p className='text-textInput'>10</p>
-            </a>
+            {brands?.map((brand, index) => (
+              <button
+                className='flex w-full justify-between mt-1.5 hover:bg-cream2'
+                key={index}
+                onClick={() => updateFilters({ brand: brand.brand })}
+              >
+                <p>{brand.brand}</p>
+                <p className='text-textInput'>{brand.total}</p>
+              </button>
+            ))}
           </div>
         </div>
 
         {/* button delete */}
         <div className='flex justify-center mt-8 mb-8'>
-          <button className='font-semibold text-center text-white '>Hapus Filter</button>
+          <button
+            className='font-semibold text-center text-white'
+            onClick={() => updateFilters({ brand: '', search: '', page: 1 })}
+          >
+            Hapus Filter
+          </button>
         </div>
       </div>
     </>

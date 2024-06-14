@@ -93,7 +93,7 @@ export default function Sidenavbar() {
         alt='Icon retreads'
         width={120}
         height={120}
-        priority
+        priority={true}
       />
 
       <nav className='py-2 mt-6 md:mt-6'>

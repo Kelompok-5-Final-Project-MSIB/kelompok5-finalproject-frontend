@@ -51,6 +51,7 @@ const Navbar = () => {
             alt='Flowbite Logo'
             width={200}
             height={200}
+            priority={true}
             className='w-[40%] md:w-[30%] lg:w-[12%]'
           />
 

@@ -115,9 +115,10 @@ const page = () => {
                   <div className='relative flex items-center justify-center w-24 h-24 text-white border-2 rounded-full border-primaryBrown hover:bg-primaryBrown-dark'>
                     <Image
                       src={'/shoes1.png'}
-                      width={500}
-                      height={500}
+                      width={300}
+                      height={300}
                       alt='shoes'
+                      priority={true}
                       className='rounded-full'
                     />
                     <div className='absolute flex items-center justify-center bg-white -bottom-2 w-7 h-7 right-2'>

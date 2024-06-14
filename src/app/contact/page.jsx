@@ -30,7 +30,7 @@ const Page = () => {
                 <div className='mb-10 font-light text-gray-500 md:text-lg'>
                   <a
                     href='#'
-                    className='flex items-center justify-start w-auto h-8 m-2 text-gray-900 '
+                    className='flex items-center justify-start w-auto h-8 m-2 text-white'
                   >
                     <svg
                       className='w-6 h-6 '
@@ -182,8 +182,9 @@ const Page = () => {
                     <Image
                       src='/dcontact.png'
                       alt='Logo'
-                      width={500}
-                      height={500}
+                      width={300}
+                      height={300}
+                      priority={true}
                       className='w-[60%] md:w-[40%] lg:w-[24%] p-0 m-0'
                     />
                   </div>
