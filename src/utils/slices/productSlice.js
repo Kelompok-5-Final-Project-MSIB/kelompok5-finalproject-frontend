@@ -3,9 +3,9 @@ import axios from 'axios';
 
 export const getAllProduct = createAsyncThunk(
   'product/getAllProduct',
-  async ({ current = 1, name = '', token = '', id = '' }, thunkAPI) => {
+  async ({ current = 1, name = '', token = '', id = '', brand = '' }, thunkAPI) => {
     try {
-      let link = `http://localhost:8000/api/products?id=${id}&page=${current}&search=${name}`;
+      let link = `http://localhost:8000/api/products?id=${id}&page=${current}&search=${name}&brand=${brand}`;
       const response = await axios.get(link, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -18,6 +18,7 @@ export const getAllProduct = createAsyncThunk(
         return thunkAPI.rejectWithValue(data);
       }
     } catch (error) {
+      console.log('error', error.response.data);
       return thunkAPI.rejectWithValue(error.response.data);
     }
   },
@@ -88,6 +89,26 @@ export const deleteProduct = createAsyncThunk('product/deleteProduct', async ({ 
   }
 });
 
+export const getBrand = createAsyncThunk('product/getBrand', async ({ token }, thunkAPI) => {
+  try {
+    let link = `http://localhost:8000/api/brands`;
+    const response = await axios.get(link, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    let data = await response.data;
+    if (response.status === 200) {
+      return data;
+    } else {
+      return thunkAPI.rejectWithValue(data);
+    }
+  } catch (error) {
+    console.log('error', error.response.data);
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
 export const createProduct = createAsyncThunk('product/createProduct', async ({ dataa, token }, thunkAPI) => {
   try {
     const formData = new FormData();
@@ -118,26 +139,6 @@ export const createProduct = createAsyncThunk('product/createProduct', async ({ 
   }
 });
 
-export const getBrand = createAsyncThunk('product/getBrand', async ({ token }, thunkAPI) => {
-  try {
-    let link = `http://localhost:8000/api/products/brands`;
-    const response = await axios.get(link, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    let data = await response.data;
-    if (response.status === 200) {
-      return data;
-    } else {
-      return thunkAPI.rejectWithValue(data);
-    }
-  } catch (error) {
-    console.log('error', error.response.data);
-    return thunkAPI.rejectWithValue(error.response.data);
-  }
-});
-
 export const productSlice = createSlice({
   name: 'product',
   initialState: {
@@ -147,6 +148,7 @@ export const productSlice = createSlice({
     currentPage: 1,
     product: [],
     productById: [],
+    brands: [],
   },
   reducers: {
     clearState: (state) => {
@@ -217,6 +219,19 @@ export const productSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(updateProduct.rejected, (state, { payload }) => {
+        state.isLoading = true;
+        state.isError = true;
+        state.errorMessage = payload?.message || 'failed to fetch products';
+      })
+      .addCase(getBrand.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getBrand.fulfilled, (state, { payload }) => {
+        console.log(payload);
+        state.brands = payload.data;
+        state.isLoading = false;
+      })
+      .addCase(getBrand.rejected, (state, { payload }) => {
         state.isLoading = true;
         state.isError = true;
         state.errorMessage = payload?.message || 'failed to fetch products';

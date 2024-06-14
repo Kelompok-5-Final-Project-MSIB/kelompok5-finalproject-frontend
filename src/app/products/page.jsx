@@ -30,6 +30,7 @@ const page = () => {
   const products = product.data;
   const pages = Array.from({ length: Math.ceil(product.total / product.per_page) }, (_, i) => i + 1);
   const search = searchParams.get('search') || '';
+  const brand = searchParams.get('brand') || '';
 
   const handlePageChange = (page) => {
     dispatch(setCurrentPage(page));
@@ -46,14 +47,20 @@ const page = () => {
     }
   };
 
+  const updateFilters = ({ brand = searchParams.get('brand'), page = currentPage } = {}) => {
+    router.push(`/products?page=${page}&brand=${brand}`, { scroll: false });
+    dispatch(setCurrentPage(page));
+    dispatch(getAllProduct({ current: page, token, brand }));
+  };
+
   const fetchProducts = () => {
-    dispatch(getAllProduct({ current: currentPage, name: search, token }));
+    dispatch(getAllProduct({ current: currentPage, name: search, token, brand }));
   };
 
   useEffect(() => {
     dispatch(clearState());
     fetchProducts();
-  }, [search, session, currentPage]);
+  }, [search, session, brand, currentPage]);
   return (
     <section>
       <Navbar />
@@ -83,7 +90,11 @@ const page = () => {
         </div>
 
         <div className='flex gap-[20px] lg:gap-[50px] mt-6 mb-12'>
-          <Filter style='hidden lg:inline' />
+          <Filter
+            style='hidden lg:inline'
+            token={token}
+            updateFilters={updateFilters}
+          />
 
           {/* all products */}
           <div className='w-full lg:w-[75%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>

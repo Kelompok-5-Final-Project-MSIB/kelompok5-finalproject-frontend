@@ -17,7 +17,7 @@ const page = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const { isLoading, productById: product } = useSelector(productSelector);
-  const [selectedImage, setSelectedImage] = useState(product?.image);
+  const [selectedImage, setSelectedImage] = useState(product.image ? product.image : '/picture.jpg');
   const { errorMessage } = useSelector(cartSelector);
   const token = session?.user?.accessToken;
   const fetchProducts = () => {
@@ -65,38 +65,41 @@ const page = () => {
           <div className='flex items-center gap-3.5'>
             <div className='flex flex-col gap-3.5'>
               <div
-                className='w-24 h-24'
+                className='w-24 h-24 cursor-pointer'
                 onClick={() => setSelectedImage(product?.image)}
               >
                 <Image
-                  src={product?.image}
-                  width={500}
-                  height={500}
+                  src={product.image ?? '/picture.jpg'}
+                  width={300}
+                  height={300}
                   alt='shoes'
+                  priority={true}
                   className='w-[100%]'
                 />
               </div>
               <div
-                className='w-24 h-24'
+                className='w-24 h-24 cursor-pointer'
                 onClick={() => setSelectedImage(product?.image2)}
               >
                 <Image
-                  src={product?.image2}
-                  width={500}
-                  height={500}
+                  src={product.image2 ?? '/picture.jpg'}
+                  width={300}
+                  height={300}
                   alt='shoes'
+                  priority={true}
                   className='w-[100%]'
                 />
               </div>
               <div
-                className='w-24 h-24'
+                className='w-24 h-24 cursor-pointer'
                 onClick={() => setSelectedImage(product?.image3)}
               >
                 <Image
-                  src={product?.image3}
-                  width={500}
-                  height={500}
+                  src={product.image3 ?? '/picture.jpg'}
+                  width={300}
+                  height={300}
                   alt='shoes'
+                  priority={true}
                   className='w-[100%]'
                 />
               </div>
@@ -107,7 +110,7 @@ const page = () => {
                 alt='shoes'
                 width={500}
                 height={500}
-                priority={false}
+                priority={true}
                 className='object-cover w-full h-full'
               />
             </div>
