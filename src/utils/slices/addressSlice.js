@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getProvince = createAsyncThunk('address/getProvince', async ({ token }, thunkAPI) => {
-  console.log(token);
   try {
     const link = `http://localhost:8000/api/location/province`;
     const response = await axios.get(link, {
@@ -44,7 +43,6 @@ export const getCity = createAsyncThunk('address/getCity', async ({ id, token },
 
 export const addAddress = createAsyncThunk('address/addAddress', async ({ dataa, token = '' }, thunkAPI) => {
   try {
-    console.log(dataa);
     let link = `http://localhost:8000/api/address`;
     const response = await axios.post(link, dataa, {
       headers: {
@@ -82,6 +80,26 @@ export const getAddress = createAsyncThunk('address/getAddress', async ({ token 
   }
 });
 
+export const editAddress = createAsyncThunk('address/editAddress', async ({ dataa, id, token = '' }, thunkAPI) => {
+  console.log(dataa);
+  try {
+    let link = `http://localhost:8000/api/address/${id}`;
+    const response = await axios.put(link, dataa, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    let data = await response.data;
+    if (response.status === 200) {
+      return data;
+    } else {
+      return thunkAPI.rejectWithValue(data);
+    }
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
 export const addressSlice = createSlice({
   name: 'address',
   initialState: {
@@ -91,6 +109,7 @@ export const addressSlice = createSlice({
     addressData: [],
     provinceData: [],
     cityData: [],
+    editAddress: [],
   },
   reducers: {
     clearState: (state) => {
@@ -106,7 +125,7 @@ export const addressSlice = createSlice({
       })
       .addCase(addAddress.fulfilled, (state, { payload }) => {
         // console.log(payload);
-        state.addressData = payload.data;
+        state.addressData = payload;
         state.isLoading = false;
       })
       .addCase(addAddress.rejected, (state, { payload }) => {
@@ -144,11 +163,24 @@ export const addressSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getAddress.fulfilled, (state, { payload }) => {
-        console.log(payload);
-        state.addressData = payload.data;
+        // console.log(payload);
+        state.addressData = payload;
         state.isLoading = false;
       })
       .addCase(getAddress.rejected, (state, { payload }) => {
+        state.isLoading = true;
+        state.isError = true;
+        state.errorMessage = payload || 'failed to fetch cart';
+      })
+      .addCase(editAddress.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(editAddress.fulfilled, (state, { payload }) => {
+        // console.log(payload);
+        state.addressData = payload;
+        state.isLoading = false;
+      })
+      .addCase(editAddress.rejected, (state, { payload }) => {
         state.isLoading = true;
         state.isError = true;
         state.errorMessage = payload || 'failed to fetch cart';

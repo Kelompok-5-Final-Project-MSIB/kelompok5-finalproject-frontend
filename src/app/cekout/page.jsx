@@ -1,9 +1,6 @@
 'use client';
 import Navbar from '@/src/components/Navbar';
 import Image from 'next/image';
-import Footer from '@/src/components/Footer';
-import Address from '@/src/app/cekout/components/EditAddress';
-
 import React from 'react';
 import EditAddress from '@/src/app/cekout/components/EditAddress';
 

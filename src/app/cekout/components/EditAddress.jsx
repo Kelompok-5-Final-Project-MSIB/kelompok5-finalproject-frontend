@@ -1,10 +1,18 @@
 'use client';
 import Input from '@/src/components/Input';
 import React, { useEffect, useState } from 'react';
-import { addAddress, addressSelector, getAddress, getCity, getProvince } from '@/src/utils/slices/addressSlice';
+import {
+  addAddress,
+  addressSelector,
+  editAddress,
+  getAddress,
+  getCity,
+  getProvince,
+} from '@/src/utils/slices/addressSlice';
 import { useSession } from 'next-auth/react';
 import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from '@/src/components/Dropdown';
+import ModalAlert from '@/src/components/alert/ModalAlert';
 
 const EditAddress = () => {
   const [selectedProvince, setSelectedProvince] = useState('1');
@@ -20,7 +28,8 @@ const EditAddress = () => {
   const dispatch = useDispatch();
   const token = session?.user?.accessToken;
   let province = provinceData.results;
-  console.log(addressData);
+  const address = addressData?.data;
+  // console.log(addressData?.data);
   // console.log(selectedProvinceName);
 
   const handleChange = (e) => {
@@ -50,24 +59,41 @@ const EditAddress = () => {
 
   const handleClickAddress = (e) => {
     e.preventDefault();
-    // const dataa = {
-    //   province: selectedProvinceName,
-    //   id_province: selectedProvince,
-    //   id_city: selectedCity,
-    //   city: selectedCityName,
-    //   zip_code: zipCode,
-    //   details: detailAddress,
-    // };
-    // if (error) {
-    //   return;
-    // }
-    // dispatch(addAddress({ dataa, token }));
-    // console.log(dataa);
+    const dataa = {
+      province: selectedProvinceName,
+      id_province: selectedProvince,
+      id_city: selectedCity,
+      city: selectedCityName,
+      zip_code: zipCode,
+      details: detailAddress,
+    };
+
+    dispatch(editAddress({ dataa, id: address?.id_address, token }));
+    if (addressData?.code === 200) {
+      ModalAlert('Edit address', 'success', '');
+    }
   };
 
-  // useEffect(() => {
-  //   dispatch(getCity({ id: selectedProvince, token }));
-  // }, [selectedProvince, token, dispatch]);
+  useEffect(() => {
+    if (token) {
+      dispatch(getProvince({ token }));
+    }
+  }, [token, dispatch]);
+
+  useEffect(() => {
+    dispatch(getCity({ id: selectedProvince, token }));
+  }, [selectedProvince, token, dispatch]);
+
+  useEffect(() => {
+    if (addressData) {
+      setSelectedCity(address?.id_city);
+      setSelectedCityName(address?.city);
+      setSelectedProvince(address?.id_province);
+      setSelectedProvinceName(address?.province);
+      setZipCode(address?.zip_code);
+      setDetailAddress(address?.details);
+    }
+  }, [addressData]);
 
   useEffect(() => {
     if (token) {
@@ -146,12 +172,6 @@ const EditAddress = () => {
               <form action='#'>
                 <div className='relative grid gap-4 p-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5'>
                   <div className='w-full'>
-                    {/* <Input
-                      placeholder={'Province'}
-                      name={'province'}
-                      type='text'
-                    /> */}
-
                     <Dropdown
                       name='province'
                       value={selectedProvince}
@@ -161,7 +181,7 @@ const EditAddress = () => {
                       {province?.map((option, index) => (
                         <option
                           key={index}
-                          value={option.province_id}
+                          value={option?.province_id}
                         >
                           {option.province}
                         </option>
@@ -170,11 +190,6 @@ const EditAddress = () => {
                   </div>
 
                   <div className='w-full'>
-                    {/* <Input
-                      placeholder={'city'}
-                      name={'city'}
-                      type='text'
-                    /> */}
                     {city && (
                       <Dropdown
                         name='city'
@@ -185,7 +200,7 @@ const EditAddress = () => {
                         {city.map((option, index) => (
                           <option
                             key={index}
-                            value={option.city_id}
+                            value={option?.city_id}
                           >
                             {option.city_name}
                           </option>
@@ -198,6 +213,7 @@ const EditAddress = () => {
                       placeholder={'zip code'}
                       name={'zip_code'}
                       type='text'
+                      value={zipCode}
                       onChange={(e) => setZipCode(e.target.value)}
                     />
                   </div>
@@ -207,6 +223,7 @@ const EditAddress = () => {
                       placeholder={'detail address'}
                       name={'detail_adress'}
                       type='textarea'
+                      value={detailAddress}
                       onChange={(e) => setDetailAddress(e.target.value)}
                     />
                   </div>

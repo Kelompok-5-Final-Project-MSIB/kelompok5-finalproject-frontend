@@ -5,6 +5,7 @@ import { addAddress, addressSelector, getCity, getProvince } from '@/src/utils/s
 import { useSession } from 'next-auth/react';
 import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from '@/src/components/Dropdown';
+import ModalAlert from '@/src/components/alert/ModalAlert';
 
 const AddAddress = () => {
   const [selectedProvince, setSelectedProvince] = useState('1');
@@ -15,12 +16,12 @@ const AddAddress = () => {
   const [detailAddress, setDetailAddress] = useState('');
 
   const [error, setError] = useState('');
-  const { provinceData, cityData: city } = useSelector(addressSelector);
+  const { provinceData, isLoading, cityData: city, addressData } = useSelector(addressSelector);
   const { data: session } = useSession();
   const dispatch = useDispatch();
   const token = session?.user?.accessToken;
   let province = provinceData.results;
-  // console.log(province);
+  // console.log(addressData);
   // console.log(selectedProvinceName);
 
   const handleChange = (e) => {
@@ -62,7 +63,6 @@ const AddAddress = () => {
       return;
     }
     dispatch(addAddress({ dataa, token }));
-    // console.log(dataa);
   };
 
   useEffect(() => {
@@ -74,6 +74,19 @@ const AddAddress = () => {
       dispatch(getProvince({ token }));
     }
   }, [token, dispatch]);
+
+  useEffect(() => {
+    if (addressData.code === 200) {
+      ModalAlert('Add address', 'success', 'add address');
+      setDetailAddress('');
+      setSelectedCity('');
+      setSelectedCityName('');
+      setSelectedProvince('');
+      setSelectedProvinceName('');
+      setZipCode('');
+    }
+  }, [addressData]);
+
   return (
     <>
       <section className='lg:ml-auto'>
@@ -162,7 +175,7 @@ const AddAddress = () => {
                           key={index}
                           value={option.province_id}
                         >
-                          {option.province}
+                          {isLoading ? 'Loading...' : option.province}
                         </option>
                       ))}
                     </Dropdown>
@@ -186,7 +199,7 @@ const AddAddress = () => {
                             key={index}
                             value={option.city_id}
                           >
-                            {option.city_name}
+                            {isLoading ? 'Loading...' : option.city_name}
                           </option>
                         ))}
                       </Dropdown>
