@@ -35,15 +35,8 @@ export const signUpUser = createAsyncThunk(
 
 export const signUpAdmin = createAsyncThunk('signUp/signUpAdmin', async ({ userData, token }, thunkAPI) => {
   try {
-    let link = `http://localhost:8000/api/register`;
-    const params = {
-      name,
-      email,
-      password,
-      password_confirmation,
-      role: 'admin',
-    };
-    const response = await axios.post(link, params, {
+    let link = `http://localhost:8000/api/addAdmin`;
+    const response = await axios.post(link, userData, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -91,6 +84,21 @@ export const signUpSlice = createSlice({
         state.errorMessage = payload?.message;
       })
       .addCase(signUpUser.pending, (state) => {
+        state.isFetching = true;
+      })
+
+      .addCase(signUpAdmin.fulfilled, (state, { payload }) => {
+        console.log(payload);
+        state.isFetching = false;
+        state.isSuccess = true;
+        return state;
+      })
+      .addCase(signUpAdmin.rejected, (state, { payload }) => {
+        state.isFetching = false;
+        state.isError = true;
+        state.errorMessage = payload?.message;
+      })
+      .addCase(signUpAdmin.pending, (state) => {
         state.isFetching = true;
       });
   },
