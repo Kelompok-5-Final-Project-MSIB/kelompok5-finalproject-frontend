@@ -138,12 +138,14 @@ const page = () => {
                 </div>
               </>
             ) : (
-              products?.map((prod) => (
-                <Card
-                  key={prod.id}
-                  {...prod}
-                />
-              ))
+              products
+                ?.filter((prod) => prod.status === 'available')
+                ?.map((prod) => (
+                  <Card
+                    key={prod.id}
+                    {...prod}
+                  />
+                ))
             )}
           </div>
         </div>

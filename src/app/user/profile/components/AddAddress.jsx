@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from '@/src/components/Dropdown';
 import ModalAlert from '@/src/components/alert/ModalAlert';
 
-const AddAddress = () => {
+const AddAddress = ({ setIsOpenModal }) => {
   const [selectedProvince, setSelectedProvince] = useState('1');
   const [selectedProvinceName, setSelectedProvinceName] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
@@ -16,7 +16,7 @@ const AddAddress = () => {
   const [detailAddress, setDetailAddress] = useState('');
 
   const [error, setError] = useState('');
-  const { provinceData, isLoading, cityData: city, addressData } = useSelector(addressSelector);
+  const { provinceData, isLoading, cityData: city, addressData, addAddressData } = useSelector(addressSelector);
   const { data: session } = useSession();
   const dispatch = useDispatch();
   const token = session?.user?.accessToken;
@@ -29,7 +29,6 @@ const AddAddress = () => {
     const selectedLabel = province.find((option) => option.province_id === selectedId)?.province || '';
     setSelectedProvince(e.target.value);
     setSelectedProvinceName(selectedLabel);
-    console.log(selectedLabel);
     if (e.target.value === '') {
       setError('Please select an option');
     } else {
@@ -59,9 +58,7 @@ const AddAddress = () => {
       zip_code: zipCode,
       details: detailAddress,
     };
-    if (error) {
-      return;
-    }
+
     dispatch(addAddress({ dataa, token }));
   };
 
@@ -76,57 +73,19 @@ const AddAddress = () => {
   }, [token, dispatch]);
 
   useEffect(() => {
-    if (addressData.code === 200) {
+    if (addAddressData.code === 200) {
       ModalAlert('Add address', 'success', 'add address');
-      setDetailAddress('');
-      setSelectedCity('');
-      setSelectedCityName('');
-      setSelectedProvince('');
-      setSelectedProvinceName('');
-      setZipCode('');
     }
-  }, [addressData]);
-
+  }, [addAddressData]);
+  //
   return (
     <>
       <section className='lg:ml-auto'>
-        <button
-          data-modal-target='crud-modal'
-          data-modal-toggle='crud-modal'
-          className='inline-flex items-center w-full mt-2 font-medium text-center border-none text-cream1 hover:text-cream3 lg:ml-auto lg:mr-6 sm:mt-4 lg:mt-0'
-        >
-          <svg
-            className='w-6 h-6 mr-2 '
-            aria-hidden='true'
-            xmlns='http://www.w3.org/2000/svg'
-            width='24'
-            height='24'
-            fill='none'
-            viewBox='0 0 24 24'
-          >
-            <path
-              stroke='currentColor'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='2'
-              d='M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z'
-            />
-            <path
-              stroke='currentColor'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='2'
-              d='M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z'
-            />
-          </svg>
-          <span>Tambah Alamat</span>
-        </button>
-
         <div
           id='crud-modal'
           tabIndex='-1'
           aria-hidden='true'
-          className='hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full'
+          className='fixed inset-0 z-50 flex items-center justify-center w-full h-full overflow-x-hidden overflow-y-auto bg-black/30'
         >
           <div className='relative w-full max-w-screen-xl max-h-full p-4'>
             <div className='relative z-50 bg-white rounded-lg shadow-lg'>
@@ -136,6 +95,7 @@ const AddAddress = () => {
                   type='button'
                   className='inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 '
                   data-modal-toggle='crud-modal'
+                  onClick={() => setIsOpenModal(false)}
                 >
                   <svg
                     className='w-3 h-3'

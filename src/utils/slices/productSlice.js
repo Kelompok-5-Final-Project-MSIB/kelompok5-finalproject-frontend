@@ -46,10 +46,6 @@ export const getProductById = createAsyncThunk('product/getProductById', async (
 
 export const updateProduct = createAsyncThunk('product/updateProduct', async ({ dataa, id, token }, thunkAPI) => {
   try {
-    console.log(dataa);
-    // const formData = new FormData();
-    // Object.keys(dataa).forEach((key) => formData.append(key, dataa[key]));
-
     let link = `http://localhost:8000/api/products/${id}`;
     const response = await axios.post(link, dataa, {
       headers: {
@@ -149,16 +145,20 @@ export const productSlice = createSlice({
     product: [],
     productById: [],
     brands: [],
+    productCheckout: [],
   },
   reducers: {
     clearState: (state) => {
       state.isError = false;
       state.isLoading = false;
-
+      state.productCheckout = [];
       return state;
     },
     setCurrentPage: (state, { payload }) => {
       state.currentPage = payload;
+    },
+    addItemToCheckout: (state, { payload }) => {
+      state.productCheckout.push(payload);
     },
   },
   extraReducers: (builder) => {
@@ -227,7 +227,7 @@ export const productSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getBrand.fulfilled, (state, { payload }) => {
-        console.log(payload);
+        // console.log(payload);
         state.brands = payload.data;
         state.isLoading = false;
       })
@@ -240,5 +240,5 @@ export const productSlice = createSlice({
 });
 
 export const productSelector = (state) => state.product;
-export const { clearState, setCurrentPage } = productSlice.actions;
+export const { clearState, setCurrentPage, addItemToCheckout } = productSlice.actions;
 export default productSlice.reducer;

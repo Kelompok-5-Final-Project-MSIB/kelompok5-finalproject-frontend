@@ -110,6 +110,7 @@ export const addressSlice = createSlice({
     provinceData: [],
     cityData: [],
     editAddress: [],
+    addAddressData: [],
   },
   reducers: {
     clearState: (state) => {
@@ -125,6 +126,7 @@ export const addressSlice = createSlice({
       })
       .addCase(addAddress.fulfilled, (state, { payload }) => {
         // console.log(payload);
+        state.addAddressData = payload;
         state.addressData = payload;
         state.isLoading = false;
       })

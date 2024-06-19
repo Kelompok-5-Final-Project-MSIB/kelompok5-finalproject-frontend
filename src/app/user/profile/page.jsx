@@ -2,7 +2,7 @@
 import Input from '@/src/components/Input';
 import Navbar from '@/src/components/Navbar';
 import Image from 'next/image';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoMdArrowBack } from 'react-icons/io';
 import { FaImage } from 'react-icons/fa';
 import { RiEdit2Line } from 'react-icons/ri';
@@ -17,12 +17,13 @@ import AddAddress from './components/AddAddress';
 
 const page = () => {
   const router = useRouter();
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const { data: session, status } = useSession();
   const token = session?.user?.accessToken;
   const dispatch = useDispatch();
 
   const { userData } = useSelector(profileSelector);
-  console.log(userData);
+  // console.log(userData);
 
   const handleGetProfile = () => {
     dispatch(getUserData({ token }));
@@ -83,13 +84,40 @@ const page = () => {
                   </p>
                 </li>
                 <li className='py-2 mb-4 border-b cursor-pointer border-b-strokeInput'>
-                  {/* <p className='flex items-center font-medium text-cream1'>
-                    <span className='mr-3'>
-                      <FaRegAddressBook className='text-2xl' />
-                    </span>{' '}
-                    Alamat Saya
-                  </p> */}
-                  <AddAddress />
+                  <button
+                    data-modal-target='crud-modal'
+                    data-modal-toggle='crud-modal'
+                    onClick={() => setIsOpenModal(true)}
+                    className='inline-flex items-center w-full mt-2 font-medium text-center border-none text-cream1 hover:text-cream3 lg:ml-auto lg:mr-6 sm:mt-4 lg:mt-0'
+                  >
+                    <svg
+                      className='w-6 h-6 mr-2 '
+                      aria-hidden='true'
+                      xmlns='http://www.w3.org/2000/svg'
+                      width='24'
+                      height='24'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                    >
+                      <path
+                        stroke='currentColor'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth='2'
+                        d='M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z'
+                      />
+                      <path
+                        stroke='currentColor'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth='2'
+                        d='M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z'
+                      />
+                    </svg>
+                    <span>Tambah Alamat</span>
+                  </button>
+
+                  {isOpenModal && <AddAddress setIsOpenModal={setIsOpenModal} />}
                 </li>
                 <li
                   className='py-2 mb-4 border-b cursor-pointer hover:text-cream3 border-b-strokeInput'

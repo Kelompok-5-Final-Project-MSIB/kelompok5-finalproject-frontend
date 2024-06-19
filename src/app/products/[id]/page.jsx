@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { IoMdArrowBack } from 'react-icons/io';
-import { productSelector, getProductById, clearState } from '@/src/utils/slices/productSlice';
+import { productSelector, getProductById, clearState, addItemToCheckout } from '@/src/utils/slices/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { calculateDiscountedPrice, formatToCurrency } from '@/src/utils/convertion';
 import SkeletonDetailProduct from '@/src/components/skeleton/SkeletonDetailProduct';
@@ -32,10 +32,15 @@ const page = () => {
     router.push('/cart');
   };
 
+  const handleCheckout = (products) => {
+    dispatch(addItemToCheckout(products));
+    router.push('/cekout');
+  };
+
   useEffect(() => {
     dispatch(clearState());
     fetchProducts();
-  }, [session]);
+  }, [session, dispatch, id]);
 
   if (isLoading) {
     return (
@@ -131,7 +136,7 @@ const page = () => {
             <div className='flex mt-4'>
               <button
                 className='px-10 py-2 mr-3 text-white border rounded-lg bg-primaryBrown border-primaryBrown'
-                onClick={() => router.push('/cekout')}
+                onClick={() => handleCheckout(product ? product : {})}
               >
                 Checkout
               </button>

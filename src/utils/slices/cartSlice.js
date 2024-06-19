@@ -82,9 +82,9 @@ export const cartSlice = createSlice({
       return state;
     },
     toggleProductSelection: (state, { payload }) => {
-      const { id_product, price, isChecked } = payload;
+      const { id_product, price, isChecked, name_product } = payload;
       if (isChecked) {
-        state.selectedProducts.push({ id: id_product, price });
+        state.selectedProducts.push({ id: id_product, price, name_product });
       } else {
         state.selectedProducts = state.selectedProducts.filter((product) => product.id !== id_product);
       }
@@ -94,7 +94,13 @@ export const cartSlice = createSlice({
       const { products, isChecked } = payload;
       state.isSelectAll = isChecked;
       if (isChecked) {
-        state.selectedProducts = products.map((product) => ({ id: product.id_product, price: product.price }));
+        state.selectedProducts = products.map((product) => ({
+          id: product.id_product,
+          price: product.price,
+          name_product: product.name_product,
+          discounted_price: product.discounted_price,
+          discount: product.discount,
+        }));
       } else {
         state.selectedProducts = [];
       }

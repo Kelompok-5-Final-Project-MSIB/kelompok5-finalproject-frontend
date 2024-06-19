@@ -30,6 +30,7 @@ function ModalCreateAdmin({ setIsOpenModalCreate }) {
     e.preventDefault();
     dispatch(signUpAdmin({ userData: data, token: token }));
     setIsOpenModalCreate(false);
+    setFormUser({ name: '', email: '', password: '', password_confirmation: '' });
   };
   return (
     <>

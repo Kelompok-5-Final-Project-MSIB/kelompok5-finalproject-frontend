@@ -1,6 +1,6 @@
 'use client';
 import { FaShoppingCart, FaHeart, FaRegTrashAlt } from 'react-icons/fa';
-import { calculateDiscountedPrice } from '../utils/convertion';
+import { calculateDiscountedPrice, formatToCurrency } from '../utils/convertion';
 import { useDispatch } from 'react-redux';
 import { deleteCart, getAllProductCart } from '../utils/slices/cartSlice';
 import { useRouter } from 'next/navigation';
@@ -17,10 +17,7 @@ const ProductCard = ({ product, isInCart, token, onCheckboxChange, isChecked }) 
 
   return (
     <div className='flex flex-col items-center justify-between px-4 py-3 shadow-md md:flex-row'>
-      <div
-        className='flex items-center cursor-pointer'
-        onClick={() => router.push(`/products/${product.id_product}`)}
-      >
+      <div className='flex items-center cursor-pointer'>
         {isInCart && (
           <input
             id='default-checkbox'
@@ -28,7 +25,9 @@ const ProductCard = ({ product, isInCart, token, onCheckboxChange, isChecked }) 
             value={product.id_product}
             checked={isChecked}
             className='w-4 h-4 border-gray-300 rounded bg-primaryBrown text-primaryBrown focus:ring-primaryBrown focus:ring-2'
-            onChange={(e) => onCheckboxChange(product.id_product, e.target.checked, product.price)}
+            onChange={(e) =>
+              onCheckboxChange(product.id_product, e.target.checked, product.discounted_price, product.name_product)
+            }
           />
         )}
         <div className={`w-20 h-20  ${isInCart ? 'ml-8' : 'ml-0'}`}>
@@ -39,15 +38,14 @@ const ProductCard = ({ product, isInCart, token, onCheckboxChange, isChecked }) 
             alt={product.name_product}
             priority={true}
             className='w-full'
+            onClick={() => router.push(`/products/${product.id_product}`)}
           />
         </div>
         <div className={`ml-5 ${isInCart ? '' : 'ml-0'}`}>
           <h1 className='text-lg'>{product.name_product}</h1>
           <div className='flex items-center gap-3 mt-2'>
             <p className='line-through text-textInput'>{product.price}</p>
-            {/* <h3 className='text-lg font-semibold text-primaryBrown'>
-              {calculateDiscountedPrice(product.price / discount)}
-            </h3> */}
+            <h3 className='text-lg font-semibold text-primaryBrown'>{formatToCurrency(product.discounted_price)}</h3>
           </div>
         </div>
       </div>

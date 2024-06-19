@@ -13,6 +13,8 @@ import {
 import { useSession } from 'next-auth/react';
 import SkeletonCart from '@/src/components/skeleton/SkeletonCart';
 import { useRouter } from 'next/navigation';
+import { formatToCurrency } from '@/src/utils/convertion';
+import { addItemToCheckout } from '@/src/utils/slices/productSlice';
 
 const page = () => {
   const dispatch = useDispatch();
@@ -21,9 +23,17 @@ const page = () => {
   const { data: session, status } = useSession();
   const token = session?.user?.accessToken;
   const carts = cartProduct?.data;
+  // console.log(cartProduct);
 
-  const handleCheckboxChange = (productId, isChecked, productPrice) => {
-    dispatch(toggleProductSelection({ id_product: productId, price: productPrice, isChecked }));
+  const handleToCheckout = () => {
+    selectedProducts.forEach((product) => {
+      dispatch(addItemToCheckout(product));
+    });
+    router.push('/cekout');
+  };
+
+  const handleCheckboxChange = (productId, isChecked, productPrice, name_product) => {
+    dispatch(toggleProductSelection({ id_product: productId, price: productPrice, isChecked, name_product }));
   };
 
   const handleSelectAll = (isChecked) => {
@@ -82,21 +92,15 @@ const page = () => {
             <div className='lg:w-[35%] w-full px-6 py-3 shadow-lg'>
               <div className='flex items-center justify-between mb-3'>
                 <p>Subtotal</p>
-                <p>{subtotal}</p>
+                <p>{formatToCurrency(subtotal)}</p>
               </div>
-              {/* <div className='flex items-center justify-between mb-3'>
-                <p>Discount</p>
-                <p>No</p>
-              </div> */}
               <div className='flex items-center justify-between mb-5'>
                 <h1 className='text-2xl font-medium'>Total</h1>
-                <h1 className='text-2xl font-medium'>{total}</h1>
+                <h1 className='text-2xl font-medium'>{formatToCurrency(total)}</h1>
               </div>
               <button
                 className='w-full px-6 py-3 text-white rounded-lg bg-cream1'
-                onClick={() => {
-                  router.push('/cekout');
-                }}
+                onClick={handleToCheckout}
               >
                 Checkout
               </button>
