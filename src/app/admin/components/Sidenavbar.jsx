@@ -29,7 +29,7 @@ export default function Sidenavbar() {
       label: 'Produk',
     },
     {
-      id: '/admin/payment',
+      id: '/admin/transaksi',
       icon: <FaDollarSign />,
       label: 'Transaksi',
     },
