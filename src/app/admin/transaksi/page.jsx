@@ -1,33 +1,59 @@
-import React from "react";
 
-// components
 
-export default function CardPageVisits() {
-  return (
-    <>
-      <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-        <div className="rounded-t mb-0 px-4 py-3 border-0">
-          <div className="flex flex-wrap items-center">
-            <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-              <h3 className="font-semibold text-base text-blueGray-700">
-                Recent Orders
-              </h3>
+
+const Transaksi = () => {
+
+    return (
+        <>
+        <section className='px-10 mt-12'>
+        <h1 className='text-2xl font-bold'>Product</h1>
+         <div className='h-screen mt-4 overflow-x-auto md:mt-6'>
+        <div className="bg-white relative shadow-md sm:rounded-lg rounded-lg overflow-hidden">
+            <div
+              className="bg-cream1 flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+
+              <div
+                className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+
+                <h2 className="text-xl font-semibold text-white">DAFTAR TRANSAKSI</h2>
+              </div>
+
+              <div className="w-full md:w-1/2">
+                <form className="flex items-center">
+                  <label for="simple-search" className="sr-only">Search</label>
+                  <div className="relative w-full">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
+                        viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                          d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                          clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    <input type="text" name="keyword" id="simple-search"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-blue-900 block w-full pl-10 p-2 mr-3"
+                      placeholder="Cari Transaksi">
+                        </input>
+                  </div>
+
+                  <button type="submit"
+                    className="flex items-center justify-center text-white bg-amber-500 hover:bg-amber-600 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm px-4 py-2 ml-4">
+                    <svg className="h-3.5 w-3.5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                      viewBox="0 0 20 20">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                    Cari
+                  </button>
+                  
+                </form>
+              </div>
+
             </div>
-            <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-              <button
-                className="bg-cream1 text-white active:bg-indigo-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-              >
-                See all
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="block w-full overflow-x-auto">
-          {/* Projects table */}
-          <table className="items-center w-full bg-transparent border-collapse">
-            <thead className="text-center">
-              <tr>
+            <div className="overflow-x-auto">
+              <table id="user-table" className="w-full text-sm text-gray-500">
+                <thead className="text-xs text-gray-50 uppercase bg-cream1">
+                <tr>
               <th className="px-6 p-4 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold ">
                   No
                 </th>
@@ -172,10 +198,70 @@ export default function CardPageVisits() {
                   Rp.5.230.000
                 </td>
               </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </>
-  );
+
+
+                </tbody>
+              </table>
+            </div>
+
+            {/* <nav className="flex flex-col md:items-end justify-between items-start space-y-3 md:space-y-0 p-4"
+              aria-label="Table navigation">
+              <ul className="inline-flex items-stretch -space-x-px">
+                <li>
+                    <a href=""
+                      className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-blue-900 bg-white rounded-l-lg border border-blue-300 hover:bg-blue-100 hover:text-blue-700">
+                      <span className="sr-only">Previous</span>
+                      <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="m15 19-7-7 7-7" />
+                      </svg>
+                    </a>
+                    <span
+                      className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 cursor-not-allowed">
+                      <span className="sr-only">Previous</span>
+                      <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="m15 19-7-7 7-7" />
+                      </svg>
+                    </span>
+                </li>
+                  <li>
+                    <a href=""
+                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight <?php echo $current_page === $i ? 'text-blue-600 bg-blue-50' : 'text-blue-900 bg-white'; ?> border border-blue-300 hover:bg-blue-100 hover:text-blue-700">
+                    </a>
+                  </li>
+                <li>
+                    <a href=""
+                      className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-blue-900 bg-white rounded-r-lg border border-blue-300 hover:bg-blue-100 hover:text-blue-700">
+                      <span className="sr-only">Next</span>
+                      <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="m9 5 7 7-7 7" />
+                      </svg>
+                    </a>
+                    <span
+                      className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 cursor-not-allowed">
+                      <span className="sr-only">Next</span>
+                      <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="m9 5 7 7-7 7" />
+                      </svg>
+                    </span>
+                </li>
+              </ul>
+            </nav> */}
+            </div>
+          </div>
+
+        </section>
+        
+        </>
+
+    )
 }
+
+export default Transaksi;
