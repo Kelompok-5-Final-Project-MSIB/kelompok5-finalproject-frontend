@@ -41,6 +41,7 @@ export const nextAuthOptions = {
       session.user.id = token.user.id_user;
       session.user.accessToken = token.access_token;
       session.user.name = token.user.name;
+      session.user.role = token.user.role;
       return session;
     },
     async jwt({ token, user }) {

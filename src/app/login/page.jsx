@@ -2,11 +2,14 @@
 import AuthLayout from '@/src/components/AuthLayout';
 import Input from '@/src/components/Input';
 import ModalAlert from '@/src/components/alert/ModalAlert';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 const Page = () => {
   const router = useRouter();
+  const { data: session, status } = useSession();
+  // console.log(session?.user?.role, status);
+  const role = session?.user?.role;
   const [formUser, setFormUser] = useState({
     email: '',
     password: '',
@@ -54,9 +57,8 @@ const Page = () => {
         redirect: false,
       });
 
-      if (response.status === 200) {
+      if (response.ok) {
         ModalAlert('Login', 'success');
-        router.push('/');
       } else {
         ModalAlert('Login', 'error', `${response.error}`);
       }
@@ -64,6 +66,15 @@ const Page = () => {
       ModalAlert('Login', 'error');
     }
   };
+
+  useEffect(() => {
+    if (role === 'admin') {
+      router.push('/admin');
+    }
+    if (role === 'user') {
+      router.push('/');
+    }
+  }, [role]);
 
   return (
     <AuthLayout title={'Nice to see you again!'}>
@@ -87,7 +98,6 @@ const Page = () => {
         />
         <p className='mt-1 mb-4 text-sm text-right'>Forgot Password?</p>
         <button
-          type='button'
           onClick={handleSubmit}
           className='w-full px-5 py-3 mb-2 text-base font-medium text-white rounded-lg bg-black2 hover:bg-black focus:ring-4 focus:ring-blue-300 me-2'
         >
