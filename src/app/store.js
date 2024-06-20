@@ -4,6 +4,7 @@ import { productSlice } from '@/src/utils/slices/productSlice';
 import { cartSlice } from '@/src/utils/slices/cartSlice';
 import { profileSlice } from '@/src/utils/slices/profileSlice';
 import { addressSlice } from '@/src/utils/slices/addressSlice';
+import { paymentSlice } from '@/src/utils/slices/paymentSlice';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     cart: cartSlice.reducer,
     profile: profileSlice.reducer,
     address: addressSlice.reducer,
+    payment: paymentSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
