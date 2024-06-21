@@ -8,7 +8,7 @@ const formatToCurrency = (number) => {
     style: 'currency',
     currency: 'IDR',
     minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 0,
   }).format(number);
 
   return formattedNumber;

@@ -3,13 +3,7 @@ import Navbar from '@/src/components/Navbar';
 import ProductCard from '@/src/components/ProductCard';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  cartSelector,
-  getAllProductCart,
-  clearState,
-  toggleProductSelection,
-  selectAllProducts,
-} from '@/src/utils/slices/cartSlice';
+import { cartSelector, getAllProductCart, clearState, selectAllProducts } from '@/src/utils/slices/cartSlice';
 import { useSession } from 'next-auth/react';
 import SkeletonCart from '@/src/components/skeleton/SkeletonCart';
 import { useRouter } from 'next/navigation';
@@ -30,10 +24,6 @@ const page = () => {
       dispatch(addItemToCheckout(product));
     });
     router.push('/cekout');
-  };
-
-  const handleCheckboxChange = (productId, isChecked, productPrice, name_product) => {
-    dispatch(toggleProductSelection({ id_product: productId, price: productPrice, isChecked, name_product }));
   };
 
   const handleSelectAll = (isChecked) => {
@@ -81,11 +71,6 @@ const page = () => {
                       product={product}
                       isInCart={true}
                       token={token}
-                      onCheckboxChange={handleCheckboxChange}
-                      isChecked={
-                        isSelectAll ||
-                        selectedProducts.some((selectedProduct) => selectedProduct.id === product.id_product)
-                      }
                     />
                   ))}
             </div>

@@ -64,7 +64,7 @@ const AddAddress = ({ setIsOpenModal }) => {
 
   useEffect(() => {
     dispatch(getCity({ id: selectedProvince, token }));
-  }, [selectedProvince, token, dispatch]);
+  }, [selectedProvince]);
 
   useEffect(() => {
     if (token) {
@@ -118,12 +118,6 @@ const AddAddress = ({ setIsOpenModal }) => {
               <form action='#'>
                 <div className='relative grid gap-4 p-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5'>
                   <div className='w-full'>
-                    {/* <Input
-                      placeholder={'Province'}
-                      name={'province'}
-                      type='text'
-                    /> */}
-
                     <Dropdown
                       name='province'
                       value={selectedProvince}
@@ -142,11 +136,6 @@ const AddAddress = ({ setIsOpenModal }) => {
                   </div>
 
                   <div className='w-full'>
-                    {/* <Input
-                      placeholder={'city'}
-                      name={'city'}
-                      type='text'
-                    /> */}
                     {city && (
                       <Dropdown
                         name='city'
@@ -189,7 +178,7 @@ const AddAddress = ({ setIsOpenModal }) => {
                     className='text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800'
                     onClick={handleClickAddress}
                   >
-                    Update Address
+                    Add Address
                   </button>
                   <button
                     type='button'

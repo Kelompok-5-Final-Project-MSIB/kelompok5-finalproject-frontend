@@ -24,7 +24,7 @@ const Page = () => {
   const name = session?.user?.name;
   const token = session?.user?.accessToken;
 
-  // console.log(paymentData);
+  console.log(productCheckout);
   const handleSendOrder = (e) => {
     e.preventDefault();
     // alert('Order Succes');
@@ -35,6 +35,16 @@ const Page = () => {
   };
   const handleOpenModal = () => {
     setIsOpenModal(true);
+  };
+
+  const calculateTotalDiscountedPrice = () => {
+    if (productCheckout.length === 1) {
+      return calculateDiscountedPrice(productCheckout[0].price, productCheckout[0].discount);
+    } else {
+      return productCheckout.reduce((total, product) => {
+        return total + product.discounted_price;
+      }, 0);
+    }
   };
 
   useEffect(() => {
@@ -256,9 +266,7 @@ const Page = () => {
                   <div className='flex items-center justify-between gap-4'>
                     <p className='text-gray-500 dark:text-gray-400'>Product after discount</p>
                     <p className='text-base font-medium text-gray-900 dark:text-white'>
-                      {formatToCurrency(
-                        calculateDiscountedPrice(productCheckout[0]?.price, productCheckout[0]?.discount),
-                      )}
+                      {formatToCurrency(calculateTotalDiscountedPrice())}
                     </p>
                   </div>
                   <div className='flex items-center justify-between gap-4'>
@@ -271,38 +279,11 @@ const Page = () => {
                 <div className='flex items-center justify-between gap-4 pt-2 border-t border-gray-200 dark:border-gray-700'>
                   <p className='text-lg font-bold text-gray-900 dark:text-white'>Total Payment</p>
                   <p className='text-lg font-bold text-gray-900 dark:text-white'>
-                    {address
-                      ? formatToCurrency(
-                          calculateDiscountedPrice(productCheckout[0]?.price, productCheckout[0]?.discount) +
-                            address?.shipping_cost,
-                        )
-                      : '-'}
+                    {address ? formatToCurrency(calculateTotalDiscountedPrice() + address?.shipping_cost) : '-'}
                   </p>
                 </div>
               </div>
-              <div className='flex items-start sm:items-center'>
-                <input
-                  id='terms-checkbox-2'
-                  type='checkbox'
-                  value=''
-                  className='w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600'
-                />
-                <label
-                  htmlFor='terms-checkbox-2'
-                  className='ml-2 text-sm font-medium text-gray-900 dark:text-gray-300'
-                >
-                  {' '}
-                  I agree with the{' '}
-                  <a
-                    href='#'
-                    title=''
-                    className='underline text-primary-700 hover:no-underline dark:text-primary-500'
-                  >
-                    Terms and Conditions
-                  </a>{' '}
-                  of use of the Flowbite marketplace{' '}
-                </label>
-              </div>
+
               <div className='gap-4 sm:flex sm:items-center'>
                 <button
                   type='button'
