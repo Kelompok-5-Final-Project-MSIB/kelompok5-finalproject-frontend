@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ProductList from './components/ProductList';
 import Pagination from '@/src/components/Pagination';
+import { LuRefreshCcw } from 'react-icons/lu';
 import { useRouter, useSearchParams } from 'next/navigation';
 function page() {
   const { data: session } = useSession();
@@ -17,7 +18,6 @@ function page() {
   const pages = Array.from({ length: Math.ceil(product.total / product.per_page) }, (_, i) => i + 1);
   const search = searchParams.get('search') || '';
   const token = session?.user?.accessToken;
-  console.log(token);
   const handlePageChange = (page) => {
     dispatch(setCurrentPage(page));
     dispatch(getAllProduct({ current: page, name: search }));
@@ -30,6 +30,12 @@ function page() {
     if (!e.target.value) {
       router.push(`/admin/product?page=${currentPage}`, { scroll: false });
     }
+  };
+
+  const handleRefreshCourse = () => {
+    setNameProduct('');
+    router.push(`/admin/product?page=${currentPage}`, { scroll: false });
+    dispatch(getAllProduct({ current: currentPage, name: search, token }));
   };
 
   useEffect(() => {
@@ -80,6 +86,7 @@ function page() {
                     className='block w-full p-2 pl-10 mr-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-blue-900'
                     placeholder='Cari Sepatu'
                     onChange={handleSearch}
+                    value={nameProduct}
                   ></input>
                 </div>
                 <a
@@ -104,6 +111,11 @@ function page() {
                   </svg>
                   Tambah
                 </a>
+                <LuRefreshCcw
+                  size={30}
+                  className={`mr-3 cursor-pointer text-primaryBrown cursorPointer ml-2`}
+                  onClick={handleRefreshCourse}
+                />
               </form>
             </div>
           </div>

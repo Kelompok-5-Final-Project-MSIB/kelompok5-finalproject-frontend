@@ -1,37 +1,55 @@
-import React from 'react';
-import Sidenavbar from '@/src/app/admin/components/Sidenavbar';
+'use client';
+import React, { useEffect } from 'react';
 
 import CardStats from '@/src/app/admin/components/CardStats';
 import CardLineChart from '@/src/app/admin/components/CardLineChart';
 import CardBarChart from '@/src/app/admin/components/CardBarChart';
 import CardPageVisits from '@/src/app/admin/components/CardPageVisits';
-import CardSocialTraffic from '@/src/app/admin/components/CardSocialTraffic';
-import { PiExcludeSquare } from 'react-icons/pi';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearState, getAllUser, profileSelector } from '@/src/utils/slices/profileSlice';
+import { useSession } from 'next-auth/react';
+import { getAllProduct, productSelector } from '@/src/utils/slices/productSlice';
 
 const Dashboard = () => {
+  const { userData } = useSelector(profileSelector);
+  const { product } = useSelector(productSelector);
+  const { data: session } = useSession();
+  const token = session?.user?.accessToken;
+  const dispatch = useDispatch();
+  // console.log(product, token);
+
+  useEffect(() => {
+    dispatch(getAllUser());
+    dispatch(clearState());
+  }, []);
+
+  useEffect(() => {
+    dispatch(getAllProduct({ token }));
+    dispatch(clearState());
+  }, [token]);
   return (
     <>
       <section className='px-10 mt-12'>
         <div className='w-full px-4 mx-auto mb-8 md:px-10'>
           <div>
             {/* Card stats */}
-            <div className='flex flex-wrap'>
-              <div className='w-full px-4 lg:w-6/12 xl:w-3/12'>
+            <div className='grid grid-cols-3'>
+              <div className='w-full px-4 '>
                 <CardStats
-                  statSubtitle='TRAFFIC'
-                  statTitle='350,897'
+                  statSubtitle='Total user'
+                  statTitle={userData.length}
                   statArrow='up'
-                  statPercent='3.48'
+                  statPercent=''
                   statPercentColor='text-emerald-500'
-                  statDescripiron='Total User'
+                  statDescripiron=''
                   statIconName='far fa-chart-bar'
                   statIconColor='bg-red-500'
                 />
               </div>
-              <div className='w-full px-4 lg:w-6/12 xl:w-3/12'>
+              <div className='w-full px-4 '>
                 <CardStats
-                  statSubtitle='NEW USERS'
-                  statTitle='2,356'
+                  statSubtitle='Total Penjualan'
+                  statTitle='2'
                   statArrow='down'
                   statPercent='3.48'
                   statPercentColor='text-red-500'
@@ -40,28 +58,16 @@ const Dashboard = () => {
                   statIconColor='bg-orange-500'
                 />
               </div>
-              <div className='w-full px-4 lg:w-6/12 xl:w-3/12'>
+              <div className='w-full px-4 '>
                 <CardStats
-                  statSubtitle='SALES'
-                  statTitle='924'
+                  statSubtitle='Total Sepatu Tersedia'
+                  statTitle={product?.total}
                   statArrow='down'
                   statPercent='1.10'
                   statPercentColor='text-orange-500'
-                  statDescripiron='Total Sepatu Tersedia'
+                  statDescripiron=''
                   statIconName='fas fa-users'
                   statIconColor='bg-pink-500'
-                />
-              </div>
-              <div className='w-full px-4 lg:w-6/12 xl:w-3/12'>
-                <CardStats
-                  statSubtitle='PERFORMANCE'
-                  statTitle='49,65%'
-                  statArrow='up'
-                  statPercent='12'
-                  statPercentColor='text-emerald-500'
-                  statDescripiron='Since last month'
-                  statIconName='fas fa-percent'
-                  statIconColor='bg-lightBlue-500'
                 />
               </div>
             </div>

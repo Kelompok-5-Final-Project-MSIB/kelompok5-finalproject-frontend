@@ -8,6 +8,7 @@ import ModalDeleteAdmin from './components/ModalDeleteAdmin';
 const Page = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isOpenModalCreate, setIsOpenModalCreate] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState('');
   const { userData } = useSelector(profileSelector);
   const dispatch = useDispatch();
   const handleDeleteClick = () => {
@@ -17,6 +18,12 @@ const Page = () => {
   const handleCloseModal = () => {
     setIsModalVisible(false);
   };
+
+  const handleSearchChange = (event) => {
+    setSearchKeyword(event.target.value);
+  };
+
+  const filteredUsers = userData?.filter((admin) => admin.name.toLowerCase().includes(searchKeyword.toLowerCase()));
 
   useEffect(() => {
     dispatch(getAllUser());
@@ -64,6 +71,7 @@ const Page = () => {
                       id='simple-search'
                       className='block w-full p-2 pl-10 mr-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-blue-900'
                       placeholder='Cari Admin'
+                      onChange={handleSearchChange}
                     ></input>
                   </div>
 
@@ -134,7 +142,7 @@ const Page = () => {
                 </thead>
 
                 <tbody>
-                  {userData
+                  {filteredUsers
                     ?.filter((user) => user.role === 'admin')
                     ?.map((user, index) => (
                       <tr

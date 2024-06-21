@@ -5,24 +5,27 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Page = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [deleteId, setDeleteId] = useState(null);
+  const [searchKeyword, setSearchKeyword] = useState('');
   const { userData } = useSelector(profileSelector);
   const dispatch = useDispatch();
 
   const handleDeleteClick = (id) => {
-    setDeleteId(id);
     setIsModalVisible(true);
+  };
+  const handleSearchChange = (event) => {
+    setSearchKeyword(event.target.value);
   };
 
   const handleCloseModal = () => {
     setIsModalVisible(false);
-    setDeleteId(null);
   };
 
   useEffect(() => {
     dispatch(getAllUser());
     dispatch(clearState());
   }, []);
+
+  const filteredUsers = userData?.filter((user) => user.name.toLowerCase().includes(searchKeyword.toLowerCase()));
 
   return (
     <>
@@ -65,6 +68,7 @@ const Page = () => {
                       id='simple-search'
                       className='block w-full p-2 pl-10 mr-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-blue-900'
                       placeholder='Cari User'
+                      onChange={handleSearchChange}
                     ></input>
                   </div>
 
@@ -134,7 +138,7 @@ const Page = () => {
                 </thead>
 
                 <tbody>
-                  {userData
+                  {filteredUsers
                     ?.filter((user) => user.role === 'user')
                     ?.map((user, index) => (
                       <tr
