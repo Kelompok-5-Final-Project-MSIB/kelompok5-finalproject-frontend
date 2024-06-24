@@ -31,7 +31,7 @@ const page = () => {
   };
 
   const calculatedSubtotal = () => {
-    return selectedProducts.reduce((total, product) => total + product.price, 0);
+    return selectedProducts.reduce((total, product) => total + product.discounted_price, 0);
   };
 
   const subtotal = calculatedSubtotal();

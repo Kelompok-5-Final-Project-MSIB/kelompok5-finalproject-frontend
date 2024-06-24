@@ -9,7 +9,7 @@ import { useSession } from 'next-auth/react';
 import { calculateDiscountedPrice, formatToCurrency } from '@/src/utils/convertion';
 import { productSelector } from '@/src/utils/slices/productSlice';
 import { useRouter } from 'next/navigation';
-import { addPayment, paymentSelector } from '@/src/utils/slices/paymentSlice';
+import { addPayment, callbackPayment, paymentSelector } from '@/src/utils/slices/paymentSlice';
 
 const Page = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -23,18 +23,19 @@ const Page = () => {
   const router = useRouter();
   const name = session?.user?.name;
   const token = session?.user?.accessToken;
+  // const payment = paymentData?.data;
 
-  console.log(productCheckout);
-  const handleSendOrder = (e) => {
-    e.preventDefault();
-    // alert('Order Succes');
-    dispatch(addPayment({ token }));
-  };
+  console.log(paymentData);
   const handleRedirect = () => {
     router.push('/user/profile');
   };
   const handleOpenModal = () => {
     setIsOpenModal(true);
+  };
+  const handleSendOrder = (e) => {
+    e.preventDefault();
+    // alert('Order Succes');
+    dispatch(addPayment({ token }));
   };
 
   const calculateTotalDiscountedPrice = () => {
@@ -49,39 +50,14 @@ const Page = () => {
 
   useEffect(() => {
     if (session?.user?.accessToken) dispatch(getAddress({ token }));
-  }, [token, dispatch]);
+  }, [token]);
 
   useEffect(() => {
     if (paymentData?.snap_token) {
       setSnapToken(paymentData.snap_token);
     }
+    // dispatch(callbackPayment({ order_id: paymentData }));
   }, [paymentData]);
-
-  useEffect(() => {
-    if (snapToken) {
-      window.snap.pay(snapToken, {
-        onSuccess: function (result) {
-          localStorage.setItem('paymentResult', JSON.stringify(result));
-          setSnapToken('');
-        },
-
-        onPending: function (result) {
-          localStorage.setItem('paymentResult', JSON.stringify(result));
-          setSnapToken('');
-        },
-
-        onError: function (result) {
-          console.log(result);
-          setSnapToken('');
-        },
-
-        onClose: function () {
-          alert('you closed the popup without finishing the payment');
-          setSnapToken('');
-        },
-      });
-    }
-  }, [snapToken]);
 
   useEffect(() => {
     const midtransUrl = `https://app.sandbox.midtrans.com/snap/snap.js`;
@@ -92,12 +68,40 @@ const Page = () => {
     const midtransClientKey = 'SB-Mid-client-FPlDDrfRtGsI8j_E';
     scriptTag.setAttribute('data-client-key', midtransClientKey);
 
+    scriptTag.async = true;
+
     document.body.appendChild(scriptTag);
 
     return () => {
       document.body.removeChild(scriptTag);
     };
   }, []);
+
+  useEffect(() => {
+    window.snap?.pay(snapToken, {
+      onPending: function (result) {
+        router.push('/cekout');
+        console.log(result);
+        setSnapToken('');
+        dispatch(callbackPayment({ order_id: result.order_id }));
+      },
+      onSuccess: function (result) {
+        console.log(result);
+        dispatch(callbackPayment({ order_id: result.order_id }));
+        setSnapToken('');
+      },
+
+      onError: function (error) {
+        console.log(error);
+        setSnapToken('');
+      },
+
+      onClose: function () {
+        alert('you closed the popup without finishing the payment');
+        setSnapToken('');
+      },
+    });
+  }, [snapToken]);
 
   return (
     <>
