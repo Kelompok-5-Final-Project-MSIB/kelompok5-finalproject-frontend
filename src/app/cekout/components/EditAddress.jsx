@@ -13,9 +13,10 @@ import { useSession } from 'next-auth/react';
 import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from '@/src/components/Dropdown';
 import ModalAlert from '@/src/components/alert/ModalAlert';
+import { useRouter } from 'next/navigation';
 
 const EditAddress = ({ setIsOpenModal }) => {
-  const [selectedProvince, setSelectedProvince] = useState('1');
+  const [selectedProvince, setSelectedProvince] = useState('');
   const [selectedProvinceName, setSelectedProvinceName] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   const [selectedCityName, setSelectedCityName] = useState('');
@@ -26,6 +27,7 @@ const EditAddress = ({ setIsOpenModal }) => {
   const { provinceData, cityData: city, addressData, isLoading } = useSelector(addressSelector);
   const { data: session } = useSession();
   const dispatch = useDispatch();
+  const router = useRouter();
   const token = session?.user?.accessToken;
   let province = provinceData.results;
   const address = addressData?.data;
@@ -71,18 +73,20 @@ const EditAddress = ({ setIsOpenModal }) => {
     dispatch(editAddress({ dataa, id: address?.id_address, token }));
     if (addressData?.code === 200) {
       ModalAlert('Edit address', 'success', '');
+      setIsOpenModal(false);
     }
   };
 
   useEffect(() => {
     if (token) {
       dispatch(getProvince({ token }));
+      dispatch(getAddress({ token }));
     }
-  }, [token, dispatch]);
+  }, [token]);
 
   useEffect(() => {
     dispatch(getCity({ id: selectedProvince, token }));
-  }, [selectedProvince, token, dispatch]);
+  }, [selectedProvince]);
 
   useEffect(() => {
     if (addressData) {
@@ -95,11 +99,6 @@ const EditAddress = ({ setIsOpenModal }) => {
     }
   }, [addressData]);
 
-  useEffect(() => {
-    if (token) {
-      dispatch(getAddress({ token }));
-    }
-  }, [token, dispatch]);
   return (
     <>
       <section className='lg:ml-auto'>

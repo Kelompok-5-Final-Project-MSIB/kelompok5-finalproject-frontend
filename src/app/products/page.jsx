@@ -13,6 +13,8 @@ import { FaFilter } from 'react-icons/fa6';
 import { IoSearch } from 'react-icons/io5';
 import { useSession } from 'next-auth/react';
 import { useReportWebVitals } from 'next/web-vitals';
+import { LuRefreshCcw } from 'react-icons/lu';
+
 import { productSelector, getAllProduct, clearState, setCurrentPage } from '@/src/utils/slices/productSlice';
 const page = () => {
   // useReportWebVitals((metric) => {
@@ -47,6 +49,12 @@ const page = () => {
     }
   };
 
+  const handleRefreshCourse = () => {
+    setNameProduct('');
+    router.push(`/products?page=${currentPage}`, { scroll: false });
+    dispatch(getAllProduct({ current: currentPage, name: search, token }));
+  };
+
   const updateFilters = ({ brand = searchParams.get('brand'), page = currentPage } = {}) => {
     router.push(`/products?page=${page}&brand=${brand}`, { scroll: false });
     dispatch(setCurrentPage(page));
@@ -66,7 +74,12 @@ const page = () => {
       <Navbar />
       <div className='px-4 md:px-14 mt-[100px] mb-12'>
         {/* search*/}
-        <div className='relative flex justify-end'>
+        <div className='relative flex items-center justify-end'>
+          <LuRefreshCcw
+            size={30}
+            className={`mr-3 cursor-pointer text-primaryBrown cursorPointer ml-2`}
+            onClick={handleRefreshCourse}
+          />
           {isOpenModal ? <Filter style='absolute top-16 right-16 md:right-24' /> : ''}
           <button
             className='flex items-center px-2 mr-3 border rounded-lg lg:hidden group hover:bg-brown2 border-primaryBrown'

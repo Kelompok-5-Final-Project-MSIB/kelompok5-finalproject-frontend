@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from '@/src/components/Dropdown';
 import ModalAlert from '@/src/components/alert/ModalAlert';
+import { useRouter } from 'next/navigation';
 
 const AddAddress = ({ setIsOpenModal }) => {
   const [selectedProvince, setSelectedProvince] = useState('1');
@@ -14,6 +15,7 @@ const AddAddress = ({ setIsOpenModal }) => {
   const [selectedCityName, setSelectedCityName] = useState('');
   const [zipCode, setZipCode] = useState('');
   const [detailAddress, setDetailAddress] = useState('');
+  const router = useRouter();
 
   const [error, setError] = useState('');
   const { provinceData, isLoading, cityData: city, addressData, addAddressData } = useSelector(addressSelector);
@@ -75,6 +77,8 @@ const AddAddress = ({ setIsOpenModal }) => {
   useEffect(() => {
     if (addAddressData.code === 200) {
       ModalAlert('Add address', 'success', 'add address');
+
+      router.back();
     }
   }, [addAddressData]);
   //
