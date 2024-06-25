@@ -60,12 +60,6 @@ const Navbar = () => {
             <div className={`${status === 'authenticated' || status === 'loading' ? 'flex' : 'hidden'} items-center`}>
               <span className='hidden md:flex'>
                 <a
-                  href='/wishlist'
-                  className='p-2 rounded-lg cursor-pointer hover:bg-cream2/30'
-                >
-                  <FaHeart className='text-xl text-primaryBrown' />
-                </a>
-                <a
                   href='/cart'
                   className='p-2 rounded-lg cursor-pointer hover:bg-cream2/30'
                 >

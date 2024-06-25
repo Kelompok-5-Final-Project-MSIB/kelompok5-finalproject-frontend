@@ -72,7 +72,7 @@ const ModalDetail = ({ setIsOpenModal, idProduct, token }) => {
                   <li>
                     <button
                       className={`z-10 flex items-center bg-cream2 text-white justify-center h-8 px-3 leading-tight hover:bg-cream2 hover:text-black`}
-                      onClick={() => setSelectedImage(product?.image2)}
+                      onClick={() => setSelectedImage(product.image2 ?? '/picture.jpg')}
                     >
                       2
                     </button>
@@ -80,7 +80,7 @@ const ModalDetail = ({ setIsOpenModal, idProduct, token }) => {
                   <li>
                     <button
                       className={`z-10 flex items-center bg-cream2 text-white justify-center h-8 px-3 leading-tight hover:bg-cream2 hover:text-black`}
-                      onClick={() => setSelectedImage(product?.image3)}
+                      onClick={() => setSelectedImage(product.image3 ?? '/picture.jpg')}
                     >
                       3
                     </button>

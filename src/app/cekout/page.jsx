@@ -23,9 +23,9 @@ const Page = () => {
   const router = useRouter();
   const name = session?.user?.name;
   const token = session?.user?.accessToken;
-  // const payment = paymentData?.data;
-
   console.log(paymentData);
+
+  // console.log(paymentData);
   const handleRedirect = () => {
     router.push('/user/profile');
   };
@@ -49,59 +49,62 @@ const Page = () => {
   };
 
   useEffect(() => {
-    if (session?.user?.accessToken) dispatch(getAddress({ token }));
+    if (session?.user?.accessToken) {
+      dispatch(getAddress({ token }));
+    }
   }, [token]);
 
   useEffect(() => {
     if (paymentData?.snap_token) {
       setSnapToken(paymentData.snap_token);
     }
+    if (paymentData?.code === 200) {
+      window.open(paymentData.redirect_url, '_blank');
+    }
     // dispatch(callbackPayment({ order_id: paymentData }));
   }, [paymentData]);
 
-  useEffect(() => {
-    const midtransUrl = `https://app.sandbox.midtrans.com/snap/snap.js`;
+  // useEffect(() => {
+  //   window.snap?.pay(snapToken, {
+  //     onPending: function (result) {
+  //       router.push('/cekout');
+  //       console.log(result);
+  //       // setSnapToken('');
+  //       dispatch(callbackPayment({ order_id: result.order_id }));
+  //     },
+  //     onSuccess: function (result) {
+  //       console.log(result);
+  //       dispatch(callbackPayment({ order_id: result.order_id }));
+  //     },
 
-    let scriptTag = document.createElement('script');
-    scriptTag.src = midtransUrl;
+  //     onError: function (error) {
+  //       console.log(error);
+  //       // setSnapToken('');
+  //     },
 
-    const midtransClientKey = 'SB-Mid-client-FPlDDrfRtGsI8j_E';
-    scriptTag.setAttribute('data-client-key', midtransClientKey);
+  //     onClose: function () {
+  //       alert('you closed the popup without finishing the payment');
+  //     },
+  //   });
+  // }, [snapToken]);
 
-    scriptTag.async = true;
+  // useEffect(() => {
+  //   const midtransUrl = `https://app.sandbox.midtrans.com/snap/snap.js`;
+  //   const midtransClientKey = 'SB-Mid-client-FPlDDrfRtGsI8j_E';
 
-    document.body.appendChild(scriptTag);
+  //   let script = document.createElement('script');
+  //   script.src = midtransUrl;
 
-    return () => {
-      document.body.removeChild(scriptTag);
-    };
-  }, []);
+  //   script.setAttribute('data-client-key', midtransClientKey);
 
-  useEffect(() => {
-    window.snap?.pay(snapToken, {
-      onPending: function (result) {
-        router.push('/cekout');
-        console.log(result);
-        setSnapToken('');
-        dispatch(callbackPayment({ order_id: result.order_id }));
-      },
-      onSuccess: function (result) {
-        console.log(result);
-        dispatch(callbackPayment({ order_id: result.order_id }));
-        setSnapToken('');
-      },
+  //   script.async = true;
 
-      onError: function (error) {
-        console.log(error);
-        setSnapToken('');
-      },
+  //   document.body.appendChild(script);
 
-      onClose: function () {
-        alert('you closed the popup without finishing the payment');
-        setSnapToken('');
-      },
-    });
-  }, [snapToken]);
+  //   return () => {
+  //     document.body.removeChild(script);
+  //   };
+  // }, []);
 
   return (
     <>

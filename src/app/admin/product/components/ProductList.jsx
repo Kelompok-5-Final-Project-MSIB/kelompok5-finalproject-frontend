@@ -7,13 +7,13 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 
-function ProductList({ product }) {
+function ProductList({ product, nomer }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
   const { data: session } = useSession();
   const token = session?.user?.accessToken;
-  console.log(token);
+  // console.log(token);
 
   const handleOpenModal = () => {
     setIsOpenModal(true);
@@ -39,6 +39,7 @@ function ProductList({ product }) {
   return (
     <>
       <tr className='border-b hover:bg-gray-100'>
+        <td className='px-4 py-3'>{nomer}</td>
         <th
           scope='row'
           className='flex flex-col items-center px-4 py-3 font-medium text-gray-900 lg:flex-row whitespace-nowrap'

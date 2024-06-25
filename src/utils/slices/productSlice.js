@@ -154,11 +154,8 @@ export const productSlice = createSlice({
       state.productCheckout = [];
       return state;
     },
-    setCurrentPage: (state, { payload }) => {
-      state.currentPage = payload;
-    },
     addItemToCheckout: (state, { payload }) => {
-      state.productCheckout.push(payload);
+      state.productCheckout = payload;
     },
   },
   extraReducers: (builder) => {

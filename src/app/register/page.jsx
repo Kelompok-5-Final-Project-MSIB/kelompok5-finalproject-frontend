@@ -92,6 +92,7 @@ const page = () => {
   useEffect(() => {
     if (isError) {
       console.log(errorMessage);
+      ModalAlert('Register', 'error', `${errorMessage}`);
       dispatch(clearState());
     }
     if (isSuccess) {

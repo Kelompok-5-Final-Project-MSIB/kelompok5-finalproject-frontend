@@ -33,7 +33,7 @@ const Page = () => {
   return (
     <>
       <section className='px-10 mt-12'>
-        <h1 className='text-2xl font-bold'>Product</h1>
+        <h1 className='text-2xl font-bold'>Admin</h1>
         <div className='h-screen mt-4 overflow-x-auto md:mt-6'>
           <div className='relative overflow-hidden bg-white rounded-lg shadow-md sm:rounded-lg'>
             <div className='flex flex-col items-center justify-between p-4 space-y-3 bg-cream1 md:flex-row md:space-y-0 md:space-x-4'>

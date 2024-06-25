@@ -1,21 +1,29 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Card from '@/src/components/Card';
 import Footer from '@/src/components/Footer';
 import Navbar from '@/src/components/Navbar';
-import Pagination from '@/src/components/Pagination';
 import Filter from '@/src/app/products/components/Filter';
 import SkeletonProduct from '@/src/components/skeleton/SkeletonProduct';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FaFilter } from 'react-icons/fa6';
 import { IoSearch } from 'react-icons/io5';
 import { useSession } from 'next-auth/react';
-import { useReportWebVitals } from 'next/web-vitals';
 import { LuRefreshCcw } from 'react-icons/lu';
-
 import { productSelector, getAllProduct, clearState, setCurrentPage } from '@/src/utils/slices/productSlice';
+import { useReportWebVitals } from 'next/web-vitals';
+
+const Pagination = dynamic(() => import('@/src/components/Pagination'), {
+  ssr: false,
+  loading: () => <p className='relative text-2xl font-semibold text-center -top-44 animate-pulse'>Loading...</p>,
+});
+
+const Card = dynamic(() => import('@/src/components/Card'), {
+  ssr: false,
+});
+
 const page = () => {
   // useReportWebVitals((metric) => {
   //   console.log(metric);

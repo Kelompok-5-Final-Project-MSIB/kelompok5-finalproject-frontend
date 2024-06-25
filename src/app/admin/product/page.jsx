@@ -3,10 +3,24 @@ import { productSelector, getAllProduct, clearState, setCurrentPage } from '@/sr
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ProductList from './components/ProductList';
-import Pagination from '@/src/components/Pagination';
+// import ProductList from './components/ProductList';
+// import Pagination from '@/src/components/Pagination';
 import { LuRefreshCcw } from 'react-icons/lu';
 import { useRouter, useSearchParams } from 'next/navigation';
+import dynamic from 'next/dynamic';
+
+const ProductList = dynamic(() => import('./components/ProductList'), {
+  ssr: false,
+  loading: () => <p className='mb-10 text-2xl font-semibold text-center animate-pulse'>Loading...</p>,
+});
+
+const Pagination = dynamic(() => import('@/src/components/Pagination'), {
+  ssr: false,
+  loading: () => (
+    <p className='absolute text-2xl font-semibold text-center bottom-[400px] left-[500px] animate-pulse'>Loading...</p>
+  ),
+});
+
 function page() {
   const { data: session } = useSession();
   const [nameProduct, setNameProduct] = useState('');
@@ -130,6 +144,12 @@ function page() {
                     scope='col'
                     className='px-2 py-3 lg:px-4 lg:py-3'
                   >
+                    No
+                  </th>
+                  <th
+                    scope='col'
+                    className='px-2 py-3 lg:px-4 lg:py-3'
+                  >
                     Name
                   </th>
                   <th
@@ -161,8 +181,9 @@ function page() {
 
               <tbody>
                 {products
-                  ? products.map((product) => (
+                  ? products.map((product, index) => (
                       <ProductList
+                        nomer={index + 1}
                         product={product}
                         key={product.id_product}
                       />
