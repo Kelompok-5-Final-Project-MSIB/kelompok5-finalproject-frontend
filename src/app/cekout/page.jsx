@@ -16,14 +16,14 @@ const Page = () => {
   const [snapToken, setSnapToken] = useState('');
   const { addressData, isLoading } = useSelector(addressSelector);
   const { productCheckout, isLoading: loading } = useSelector(productSelector);
-  const { paymentData } = useSelector(paymentSelector);
+  const { paymentData, callback } = useSelector(paymentSelector);
   const address = addressData?.data;
   const dispatch = useDispatch();
   const { data: session } = useSession();
   const router = useRouter();
   const name = session?.user?.name;
   const token = session?.user?.accessToken;
-  console.log(paymentData);
+  // console.log(callback);
 
   // console.log(paymentData);
   const handleRedirect = () => {
@@ -36,6 +36,7 @@ const Page = () => {
     e.preventDefault();
     // alert('Order Succes');
     dispatch(addPayment({ token }));
+    router.push('/products');
   };
 
   const calculateTotalDiscountedPrice = () => {
@@ -58,34 +59,41 @@ const Page = () => {
     if (paymentData?.snap_token) {
       setSnapToken(paymentData.snap_token);
     }
+
     if (paymentData?.code === 200) {
       window.open(paymentData.redirect_url, '_blank');
     }
-    // dispatch(callbackPayment({ order_id: paymentData }));
   }, [paymentData]);
 
+  useEffect(() => {
+    if (callback?.status_code === 200) {
+      router.push('/products');
+    }
+  }, [callback, dispatch]);
+
   // useEffect(() => {
-  //   window.snap?.pay(snapToken, {
-  //     onPending: function (result) {
-  //       router.push('/cekout');
-  //       console.log(result);
-  //       // setSnapToken('');
-  //       dispatch(callbackPayment({ order_id: result.order_id }));
-  //     },
-  //     onSuccess: function (result) {
-  //       console.log(result);
-  //       dispatch(callbackPayment({ order_id: result.order_id }));
-  //     },
+  //   if (snapToken) {
+  //     window.snap.pay(snapToken, {
+  //       onPending: function (result) {
+  //         console.log(result);
+  //         // setSnapToken('');
+  //         dispatch(callbackPayment({ order_id: result.order_id }));
+  //       },
+  //       onSuccess: function (result) {
+  //         console.log(result);
+  //         dispatch(callbackPayment({ order_id: result.order_id }));
+  //       },
 
-  //     onError: function (error) {
-  //       console.log(error);
-  //       // setSnapToken('');
-  //     },
+  //       onError: function (error) {
+  //         console.log(error);
+  //         // setSnapToken('');
+  //       },
 
-  //     onClose: function () {
-  //       alert('you closed the popup without finishing the payment');
-  //     },
-  //   });
+  //       onClose: function () {
+  //         alert('you closed the popup without finishing the payment');
+  //       },
+  //     });
+  //   }
   // }, [snapToken]);
 
   // useEffect(() => {
@@ -96,8 +104,6 @@ const Page = () => {
   //   script.src = midtransUrl;
 
   //   script.setAttribute('data-client-key', midtransClientKey);
-
-  //   script.async = true;
 
   //   document.body.appendChild(script);
 

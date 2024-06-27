@@ -126,7 +126,7 @@ const Page = () => {
                       scope='col'
                       className='px-2 py-3 lg:px-4 lg:py-3'
                     >
-                      Alamat
+                      role
                     </th>
                     <th
                       scope='col'
@@ -154,31 +154,6 @@ const Page = () => {
                         <td className='px-4 py-3'>{user?.name}</td>
                         <td className='px-4 py-3'>{user?.email}</td>
                         <td className='px-4 py-3'>{user?.role}</td>
-
-                        <td className='px-4 py-3'>
-                          <button
-                            onClick={() => handleDeleteClick(1)}
-                            type='button'
-                            className='text-red-700 border-2 border-red-700 hover:bg-red-700 hover:text-white ml-2 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center'
-                          >
-                            <svg
-                              className='w-4 h-4'
-                              aria-hidden='true'
-                              xmlns='http://www.w3.org/2000/svg'
-                              fill='none'
-                              viewBox='0 0 18 20'
-                            >
-                              <path
-                                stroke='currentColor'
-                                strokeLinecap='round'
-                                strokeLinejoin='round'
-                                strokeWidth='2'
-                                d='M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z'
-                              />
-                            </svg>
-                            <span className='sr-only'>Icon Trash</span>
-                          </button>
-                        </td>
                       </tr>
                     ))}
                 </tbody>

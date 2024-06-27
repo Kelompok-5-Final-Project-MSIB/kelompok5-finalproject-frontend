@@ -157,7 +157,11 @@ export const productSlice = createSlice({
     addItemToCheckout: (state, { payload }) => {
       state.productCheckout = payload;
     },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(getAllProduct.pending, (state) => {

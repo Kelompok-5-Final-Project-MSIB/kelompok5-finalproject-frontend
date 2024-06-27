@@ -3,8 +3,7 @@ import { productSelector, getAllProduct, clearState, setCurrentPage } from '@/sr
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import ProductList from './components/ProductList';
-// import Pagination from '@/src/components/Pagination';
+
 import { LuRefreshCcw } from 'react-icons/lu';
 import { useRouter, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';

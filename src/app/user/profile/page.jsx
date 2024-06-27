@@ -14,10 +14,12 @@ import { signOut, useSession } from 'next-auth/react';
 import { clearState, getUserData, profileSelector } from '@/src/utils/slices/profileSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import AddAddress from './components/AddAddress';
-
+import { FaRegMoneyBillAlt } from 'react-icons/fa';
+import PaymentModal from './components/PaymentModal';
 const page = () => {
   const router = useRouter();
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenModalPayment, setIsOpenModalPayment] = useState(false);
   const { data: session, status } = useSession();
   const token = session?.user?.accessToken;
   const dispatch = useDispatch();
@@ -118,6 +120,23 @@ const page = () => {
                   </button>
 
                   {isOpenModal && <AddAddress setIsOpenModal={setIsOpenModal} />}
+                </li>
+                <li className='py-2 mb-4 border-b cursor-pointer border-b-strokeInput'>
+                  <button
+                    data-modal-target='crud-modal'
+                    data-modal-toggle='crud-modal'
+                    onClick={() => setIsOpenModalPayment(true)}
+                    className='inline-flex items-center w-full mt-2 font-medium text-center border-none text-cream1 hover:text-cream3 lg:ml-auto lg:mr-6 sm:mt-4 lg:mt-0'
+                  >
+                    <p className='flex items-center font-medium hover:text-cream3 text-cream1'>
+                      <span className='mr-3'>
+                        <FaRegMoneyBillAlt className='text-2xl' />
+                      </span>{' '}
+                      Seluruh Pembayaran
+                    </p>
+                  </button>
+
+                  {isOpenModalPayment && <PaymentModal setIsOpenModalPayment={setIsOpenModalPayment} />}
                 </li>
                 <li
                   className='py-2 mb-4 border-b cursor-pointer hover:text-cream3 border-b-strokeInput'

@@ -90,6 +90,7 @@ function Page() {
   useEffect(() => {
     if (product?.code === 200) {
       ModalAlert('Update product', 'success', product.name_product);
+      router.push('/admin/product');
       setFormData((prevData) => ({
         ...prevData,
         image: null,
